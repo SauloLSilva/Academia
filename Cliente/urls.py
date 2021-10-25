@@ -18,6 +18,11 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path()
+    # path('', clientes, name=clientes),
+    # path('editar_cliente', editar_cliente, name=editar_cliente),
+    # path('cadastrar_cliente', cadastrar_cliente, name=cadastrar_cliente),
+    # path('deletar_cliente', deletar_cliente, name= deletar_cliente),
+
+    # path('login', login, name=login),
+    # path('logout' logout, name=logout),
 ]
