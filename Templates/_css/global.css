@@ -34,7 +34,7 @@
   }
   /* //REM = 1rem = 16px */
   body{
-    background: var(--primary_dark);
+    background: var(--secondary_dark);
     -webkit-font-smoothing: antialiased;
   }
 
