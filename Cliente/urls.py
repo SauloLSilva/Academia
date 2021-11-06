@@ -24,5 +24,5 @@ urlpatterns = [
     # path('deletar_cliente', deletar_cliente, name= deletar_cliente),
 
     # path('login', login, name=login),
-    # path('logout' logout, name=logout),
+    # path('logout', logout, name=logout),
 ]
