@@ -1,0 +1,74 @@
+#painel-inicial {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-painel {
+  width: 60vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* box-shadow: 0 8px 8px 0 rgba(255, 255, 255, 0.4); */
+}
+.logo-painel {
+  width: 30%;
+  height: 100%;
+  background-color: var(--secondary_dark);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px 0 0 8px;
+  /* box-shadow: 0 2px 8px rgba(255, 255, 255, 0.4); */
+
+}
+.logo-painel p {
+  color: var(--shape);
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.logo-painel img {
+  width: 150px;
+}
+
+.area-login {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--primary);
+  border-radius: 0 8px 8px 0;
+}
+.area-login .input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.area-login label {
+  color: var(--shape);
+  font-size: 2rem;
+}
+.area-login #form-login input {
+  height: 1.8rem;
+  padding: 1rem;
+  margin-left: 1rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+.area-login #form-login #buttons-div input[type="button"] {
+  width: 8rem;
+  height: 3.5rem;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 5px;
+  margin: 50px;
+}
