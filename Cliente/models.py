@@ -35,5 +35,9 @@ class Usuarios(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
 
     REQUIRED_FIELDS = ['nome_completo','plano_escolhido', 'cpf']
+    USERNAME_FIELD = 'nome_completo'
 
     objects = Adm_Usuarios()
+
+    def __str__(self):
+        return self.nome_completo

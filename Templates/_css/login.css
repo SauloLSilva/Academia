@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--primary_dark);
 }
 .login-painel {
   width: 60vw;
@@ -25,7 +26,6 @@
   align-items: center;
   border-radius: 8px 0 0 8px;
   /* box-shadow: 0 2px 8px rgba(255, 255, 255, 0.4); */
-
 }
 .logo-painel p {
   color: var(--shape);
@@ -63,6 +63,8 @@
   margin-left: 1rem;
   border-radius: 5px;
   font-size: 1.2rem;
+  color: var(--text-title);
+  border-color: var(--text);
 }
 .area-login #form-login #buttons-div input[type="button"] {
   width: 8rem;
