@@ -1,0 +1,1 @@
+Pasta para arquivos css e JS do projeto
