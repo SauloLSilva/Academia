@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q83$x_8mmw01%vty2m*zc0-2irp99_a50@sex8+zj*q2+b8=++'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Cliente.apps.ClienteConfig',
-    'Planos.apps.PlanosConfig'
+    'Cliente',
+    'Planos'
 ]
 
 MIDDLEWARE = [
