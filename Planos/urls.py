@@ -15,10 +15,10 @@ Including another URLconf
 """
 # Adcionar url de menu do site
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from .views import *
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('Cliente.urls')),
-    path('', include ('Planos.urls'))
+    path('planos', planos, name='clientes'),
 ]

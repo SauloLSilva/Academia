@@ -16,18 +16,12 @@ Including another URLconf
 # Adcionar url de menu do site
 from django.contrib import admin
 from django.urls import path
-from Cliente import views
+from .views import *
 
 
 urlpatterns = [
-    path('clientes', views.clientes, name='clientes'),
-    path('', views.login, name='login'),
-    path('menu', views.menu, name='menu'),
-    path('cadastro', views.cadastro, name='cadastro')
-    # path('editar_cliente', editar_cliente, name=editar_cliente),
-    # path('cadastrar_cliente', cadastrar_cliente, name=cadastrar_cliente),
-    # path('deletar_cliente', deletar_cliente, name= deletar_cliente),
-
-    # path('login', login, name=login),
-    # path('logout', logout, name=logout),
+    path('clientes', clientes, name='clientes'),
+    path('', login, name='login'),
+    path('menu', menu, name='menu'),
+    path('cadastro', cadastro, name='cadastro')
 ]
