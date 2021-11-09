@@ -1,11 +1,13 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="_css/global.css">
-  <link rel="stylesheet" type="text/css" href="_css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/global.css' %}">
   <title>D Lions</title>
 </head>
 <body id="home-container">
@@ -15,34 +17,34 @@
         <div class="home-buttons">
           <button class="icon">
             <div class="home-button" >
-              <img id=aula src="assets/icons/aula.svg">
+              <img id=matricula src="{% static 'icons/aula.png' %}">
             </div>
-            <p>AULA</p>
+            <p>MATRÍCULA</p>
           </button>
           <button class="icon">
             <div class="home-button" >
-              <img id=caixa src="assets/icons/dollar.svg">
+              <img id=alunos src="{% static 'icons/users.png' %}">
             </div>
-            <p>CAIXA</p>
+            <p>ALUNOS</p>
           </button>
           <button class="icon">
             <div class="home-button" >
-              <img id=imprimir src="assets/icons/printer.svg">
+              <img id=planos src="{% static 'icons/dollar.png' %}">
             </div>
-            <p>IMPRIMIR</p>
+            <p>PLANOS</p>
           </button>
           <button class="icon">
             <div class="home-button" >
-              <img id=pesquisa src="assets/icons/search.svg">
+              <img id=logout src="{% static 'icons/settings.png' %}">
             </div>
-            <p>PESQUISA</p>
+            <p>LOGOUT</p>
           </button>
-          <button class="icon">
+          <!-- <button class="icon">
             <div class="home-button" >
               <img id=sistema src="assets/icons/settings.svg">
             </div>
-            <p>SISTEMA</p>
-          </button>
+            <p>SISTEMA</p> -->
+          <!-- </button>
           <button class="icon">
             <div class="home-button" >
               <img id=matricula src="assets/icons/user.svg">
@@ -54,7 +56,7 @@
               <img id=alunos src="assets/icons/users.svg">
             </div>
             <p>ALUNOS</p>
-          </button>
+          </button> -->
         </div>
       </div>
   
