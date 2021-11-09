@@ -1,0 +1,69 @@
+#cadastro-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cadastro-content {
+  width: 60vw;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  border-radius: 8px;
+  background-color: var(--bg_home);
+}
+.cadastro-content p {
+  color: var(--shape);
+  font-size: 1.5rem;
+  text-align: center;
+  padding-bottom: 1.5rem;
+}
+.cadastro-painel {
+  width: 100%;
+}
+.cadastro-buttons {
+  width: 100%;
+  background-color: var(--bg_frame);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 8px;
+
+  padding-top: 0.7rem;
+}
+
+.area-cadastro .input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+}
+.area-cadastro label {
+  color: var(--text-title);
+  font-size: 1.2rem;
+}
+.area-cadastro #form-cadastro input {
+  height: 1.5rem;
+  padding: 0.8rem;
+  margin-left: 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: var(--text-title);
+  border-color: var(--text);
+}
+
+.area-cadastro #form-cadastro #buttons-div input[type="button"] {
+  /* width: 8rem; */
+  height: 3.5rem;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.8rem;
+  border-radius: 5px;
+  margin: 50px;
+  border-color: var(--text);
+}
