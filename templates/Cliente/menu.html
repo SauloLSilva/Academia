@@ -15,30 +15,42 @@
     <nav class="home-icons">
       <div class="home-header-painel">
         <div class="home-buttons">
-          <button class="icon">
-            <div class="home-button" >
-              <img id=matricula src="{% static 'icons/aula.png' %}">
-            </div>
+          <div>
+            <form role="form" action="{% url 'cadastro' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <button>
+                  <img id=alunos src="{% static 'icons/aula.png' %}">
+                </button>
+            </form>
             <p>MATRÍCULA</p>
-          </button>
-          <button class="icon">
-            <div class="home-button" >
-              <img id=alunos src="{% static 'icons/users.png' %}">
-            </div>
+          </div>
+          <div>
+            <form role="form" action="{% url 'clientes' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <button>
+                  <img id=alunos src="{% static 'icons/users.png' %}">
+                </button>
+            </form>
             <p>ALUNOS</p>
-          </button>
-          <button class="icon">
-            <div class="home-button" >
-              <img id=planos src="{% static 'icons/dollar.png' %}">
-            </div>
+          </div>
+          <div>
+            <form role="form" action="{% url 'planos' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <button>
+                  <img id=alunos src="{% static 'icons/dollar.png' %}">
+                </button>
+            </form>
             <p>PLANOS</p>
-          </button>
-          <button class="icon">
-            <div class="home-button" >
-              <img id=logout src="{% static 'icons/settings.png' %}">
-            </div>
+          </div>
+          <div>
+            <form role="form" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <button>
+                  <img id=alunos src="{% static 'icons/users.png' %}">
+                </button>
+            </form>
             <p>LOGOUT</p>
-          </button>
+          </div>
           <!-- <button class="icon">
             <div class="home-button" >
               <img id=sistema src="assets/icons/settings.svg">
