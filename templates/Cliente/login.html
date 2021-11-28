@@ -6,14 +6,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login1.css' %}">
   <link rel="stylesheet" href="{% static 'css/global.css' %}">
   <title>D Lions</title>
 </head>
 <body id="painel-inicial">
   <section class="login-painel">
     <div class="logo-painel">
-      <img id=logo src="{% static 'assets/logo.png' %}">
+      <img id=logo src="{% static 'assets/logonovo.jpg' %}">
       <p>ESCOLA D LIONS KUNG FU</p>
     </div>
     <div class="area-login">
@@ -26,10 +26,7 @@
           <label for="senha">Senha:</label>
           <input type="password" name="senha" id="senha">
         </div>
-        <div id="buttons-div">
-        <input type="button" value="Login">
-        <!-- <input type="button" value="Sair"> -->
-        </div>
+        <input type="button" onclick="location.href='menu';" value="Acessar" />
       </form>
     </div>
   </section>

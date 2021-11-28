@@ -22,6 +22,7 @@
               <th>Nome Completo</th>
               <th>Telefone</th>
               <th>Plano Escolhido</th>
+              <th>Data Matrícula</th>
             </thead>
             <tbody>
               {%for Usuarios in usuario %}
@@ -30,6 +31,7 @@
                 <td><a href="/usuario/{{Usuarios.nome_completo}}">{{Usuarios.nome_completo}}</a></td>
                 <td><a href="/usuario/{{Usuarios.telefone}}">{{Usuarios.telefone}}</a></td>
                 <td><a href="/usuario/{{Usuarios.plano_escolhido}}">{{Usuarios.plano_escolhido}}</a></td>
+                <td><a href="/usuario/{{Usuarios.data_inicio}}">{{Usuarios.data_inicio}}</a></td>
               </tr>
               {% endfor %}
             </div>

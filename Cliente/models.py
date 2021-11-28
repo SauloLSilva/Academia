@@ -25,10 +25,10 @@ class Adm_Usuarios(BaseUserManager):
 class Usuarios(AbstractBaseUser):
     nome_completo = models.CharField(max_length=255)
     telefone = models.CharField(max_length=11)
-    cpf = models.CharField(max_length=11)
-    data_inicio = models.DateTimeField(max_length=30)
+    cpf = models.CharField(max_length=13)
+    data_inicio = models.DateTimeField(auto_now_add=True)
     data_final = models.DateTimeField(max_length=30)
-    plano_escolhido = models.CharField(max_length=10)
+    plano_escolhido = models.CharField(max_length=50)
     
     data_criado = models.DateTimeField(auto_now_add=True)
     data_editado = models.DateTimeField(auto_now_add=True)
