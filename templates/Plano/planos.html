@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/planos.css' %}">
+  <link rel="stylesheet" href="{% static 'css/planos1.css' %}">
   <link rel="stylesheet" href="{% static 'css/global.css' %}">
   <title>D Lions</title>
 </head>
@@ -28,9 +28,9 @@
               {%for plano in plano %}
               <div>
               <tr>
-                <td><a href="/plano/{{Planos.nome_plano}}">{{plano.nome_plano}}</a></td>
-                <td><a href="/plano/{{Planos.quantidade_aulas}}">{{plano.quantidade_aulas}}</a></td>
-                <td><a href="/plano/{{Planos.valor}}">{{plano.valor}}</a></td>
+                <td><a id="add-link" href="/plano/{{Planos.nome_plano}}">{{plano.nome_plano}}</a></td>
+                <td><a id="add-link" href="/plano/{{Planos.quantidade_aulas}}">{{plano.quantidade_aulas}}</a></td>
+                <td><a id="add-link" href="/plano/{{Planos.valor}}">{{plano.valor}}</a></td>
               </tr>
               {% endfor %}
             </div>

@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/clientes.css' %}">
+  <link rel="stylesheet" href="{% static 'css/clientes1.css' %}">
   <link rel="stylesheet" href="{% static 'css/global.css' %}">
   <title>D Lions</title>
 </head>
@@ -23,15 +23,17 @@
               <th>Telefone</th>
               <th>Plano Escolhido</th>
               <th>Data Matrícula</th>
+              <th>Data Final</th>
             </thead>
             <tbody>
               {%for Usuarios in usuario %}
               <div>
               <tr>
-                <td><a href="/usuario/{{Usuarios.nome_completo}}">{{Usuarios.nome_completo}}</a></td>
-                <td><a href="/usuario/{{Usuarios.telefone}}">{{Usuarios.telefone}}</a></td>
-                <td><a href="/usuario/{{Usuarios.plano_escolhido}}">{{Usuarios.plano_escolhido}}</a></td>
-                <td><a href="/usuario/{{Usuarios.data_inicio}}">{{Usuarios.data_inicio}}</a></td>
+                <td><a id="add-link" href="/usuario/{{Usuarios.nome_completo}}">{{Usuarios.nome_completo}}</a></td>
+                <td><a id="add-link" href="/usuario/{{Usuarios.telefone}}">{{Usuarios.telefone}}</a></td>
+                <td><a id="add-link" href="/usuario/{{Usuarios.plano_escolhido}}">{{Usuarios.plano_escolhido}}</a></td>
+                <td><a id="add-link" href="/usuario/{{Usuarios.data_inicio}}">{{Usuarios.data_inicio}}</a></td>
+                <td><a id="add-link" href="/usuario/{{Usuarios.data_final}}">{{Usuarios.data_final}}</a></td>
               </tr>
               {% endfor %}
             </div>

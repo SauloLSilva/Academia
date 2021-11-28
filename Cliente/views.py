@@ -6,7 +6,7 @@ from .models import Usuarios
 # Create your views here.
 
 def clientes(request):
-    cliente = Usuarios.objects.all()
+    cliente = Usuarios.objects.all().order_by('-data_inicio')
     return render (request, 'Cliente/clientes.html', {'usuario': cliente})
     
 def login(request):
