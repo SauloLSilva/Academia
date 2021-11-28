@@ -19,49 +19,21 @@
         
         <div class="area-planos">
           <table>
-            <thead>
+          <thead>
               <th>Curso</th>
               <th>Aulas</th>
               <th>Valor</th>
-              <th>Editar</th>
-            </thead>
+          </thead>
             <tbody>
+              {%for plano in plano %}
+              <div>
               <tr>
-                <td>Kung-Fu Tradicional-KFT Plano 1</td>
-                <td>7</td>
-                <td>R$180,00</td>
-                <td class="button-edit"><button name="editar">Editar</button></td>
+                <td><a href="/plano/{{Planos.nome_plano}}">{{plano.nome_plano}}</a></td>
+                <td><a href="/plano/{{Planos.quantidade_aulas}}">{{plano.quantidade_aulas}}</a></td>
+                <td><a href="/plano/{{Planos.valor}}">{{plano.valor}}</a></td>
               </tr>
-              <tr>
-                <td>Kung-Fu Tradicional-KFT Plano 2</td>
-                <td>3</td>
-                <td>R$150,00</td>
-                <td class="button-edit"><button name="editar">Editar</button></td>
-              </tr>
-              <tr>
-                <td>Kung-Fu Tradicional-KFT Plano 3</td>
-                <td>2</td>
-                <td>R$120,00</td>
-                <td class="button-edit"><button name="editar">Editar</button></td>
-              </tr>
-              <tr>
-                <td>Boxe Chinês - BC Plano 1</td>
-                <td>7</td>
-                <td>R$180,00</td>
-                <td class="button-edit"><button name="editar">Editar</button></td>
-              </tr>
-              <tr>
-                <td>Boxe Chinês - BC Plano 2</td>
-                <td>3</td>
-                <td>R$150,00</td>
-                <td class="button-edit"><button name="editar">Editar</button></td>
-              </tr>
-              <tr>
-                <td>Boxe Chinês - BC Plano 3</td>
-                <td>2</td>
-                <td>R$120,00</td>
-                <td class="button-edit"><button name="editar">Editar</button></td>
-              </tr>
+              {% endfor %}
+            </div>
             </tbody>
           </table>
         </div>

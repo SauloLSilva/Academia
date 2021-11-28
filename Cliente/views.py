@@ -1,10 +1,13 @@
 from django.http.response import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib import admin
+from .models import Usuarios
 
 # Create your views here.
 
 def clientes(request):
-    return render (request, 'Cliente/clientes.html')
+    cliente = Usuarios.objects.all()
+    return render (request, 'Cliente/clientes.html', {'usuario': cliente})
     
 def login(request):
     return render (request, 'Cliente/login.html')
