@@ -22,5 +22,6 @@ urlpatterns = [
     path('clientes', clientes, name='clientes'),
     path('', login, name='login'),
     path('menu', menu, name='menu'),
-    path('cadastro', cadastro, name='cadastro')
+    path('cadastro', cadastro, name='cadastro'),
+    path('realizar_cadastro', realizar_cadastro, name='realizar_cadastro')
 ]
