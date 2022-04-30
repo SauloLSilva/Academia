@@ -17,29 +17,30 @@
       <div class="cadastro-header-painel">
         <div class="cadastro-buttons">
     <div class="area-cadastro">
-      <form id="form-cadastro" action="">
+      <form role="form" method="post" action="{% url 'realizar_cadastro' %} " enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="input-container">
-          <label for="nome">Nome Completo: </label>
-          <input type="text" name="nome" id="nome">
+          <label >Nome Completo: </label>
+          <input type="text" class="form-control" placeholder="nome" id="nome" name="nome">
         </div>
         <div class="input-container">
           <label for="telefone">Telefone: </label>
-          <input type="tel" name="telefone" id="telefone">
+          <input type="text" class="form-control" placeholder="telefone" id="telefone" name="telefone">
         </div>
         <div class="input-container">
           <label for="cpf">CPF: </label>
-          <input type="text" name="cpf" id="cpf">
+          <input type="text" class="form-control" placeholder="CPF" id="cpf" name="cpf">
         </div>
         <div class="input-container">
           <label for="data-final">Data final: </label>
-          <input type="date" name="data-final" id="data-final">
+          <input type="text" class="form-control" placeholder="Data final do plano" id="data_final" name="data_final">
         </div>
         <div class="input-container">
           <label for="plano">Plano escolhido:</label>
-          <input type="text" name="plano" id="plano">
+          <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
         </div>
         <div id="buttons-div">
-          <input type="button" value="Cadastrar">
+          <input type="submit" value="Cadastrar">
           <input type="button" value="Cancelar" onclick="javascript:history.back()">
         </div>
       </form>
