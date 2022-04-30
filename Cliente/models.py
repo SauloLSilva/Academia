@@ -19,6 +19,7 @@ class Adm_Usuarios(BaseUserManager):
             data_final = data_final,
             plano_escolhido = plano_escolhido
         )
+        cliente.save(using=self._db)
     
         return cliente
 
@@ -27,7 +28,7 @@ class Usuarios(AbstractBaseUser):
     telefone = models.CharField(max_length=11)
     cpf = models.CharField(max_length=13)
     data_inicio = models.DateTimeField(auto_now_add=True)
-    data_final = models.DateTimeField(max_length=30)
+    data_final = models.CharField(max_length=30)
     plano_escolhido = models.CharField(max_length=50)
     
     data_criado = models.DateTimeField(auto_now_add=True)
