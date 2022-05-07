@@ -47,6 +47,7 @@ def realizar_cadastro(request):
         tel = request.POST['telefone']
         cpf_cliente = request.POST['cpf']
         valida_cpf = cpf_validate(cpf_cliente)
+        cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
         data = request.POST['data_final']
         plano = request.POST['plano']
         if valida_cpf == False:
@@ -55,7 +56,7 @@ def realizar_cadastro(request):
             cadastro = Usuarios.objects.criar_cliente(
                 nome_completo = nome,
                 telefone = tel,
-                cpf = cpf_cliente,
+                cpf = cpf,
                 data_inicio = datetime.datetime.now(),
                 data_final = data,
                 plano_escolhido = plano
