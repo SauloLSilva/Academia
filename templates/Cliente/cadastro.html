@@ -17,7 +17,7 @@
       <div class="cadastro-header-painel">
         <div class="cadastro-buttons">
     <div class="area-cadastro">
-      <form role="form" method="post" action="{% url 'realizar_cadastro' %} " enctype="multipart/form-data">
+      <form id="form-cadastro" role="form" method="post" action="{% url 'realizar_cadastro' %} " enctype="multipart/form-data">
         {% csrf_token %}
         <div class="input-container">
           <label >Nome Completo: </label>
