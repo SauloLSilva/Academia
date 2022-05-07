@@ -25,6 +25,15 @@
             <td>Matrícula</td>
           </div>
           <div>
+            <form role="form" action="{% url 'novo_plano' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <button>
+                  <img id=alunos src="{% static 'icons/aula.svg' %}">
+                </button>
+            </form>
+            <td>Novo Plano</td>
+          </div>
+          <div>
             <form role="form" action="{% url 'clientes' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
@@ -41,6 +50,15 @@
                 </button>
             </form>
             <td>Planos</td>
+          </div>
+          <div>
+            <form role="form" action="{% url 'clientes' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <button>
+                  <img id=alunos src="{% static 'icons/users.svg' %}">
+                </button>
+            </form>
+            <td>Acesso</td>
           </div>
           <div>
             <form role="form" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
