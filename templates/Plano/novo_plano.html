@@ -17,28 +17,28 @@
       <div class="cadastro-header-painel">
         <div class="cadastro-buttons">
     <div class="area-cadastro">
-      <form id="form-cadastro" role="form" method="post" action="{% url 'realizar_cadastro' %} " enctype="multipart/form-data">
+      <form id="form-cadastro" role="form" method="post" action="{% url 'criar_plano' %} " enctype="multipart/form-data">
         {% csrf_token %}
         <div class="input-container">
-          <label >Nome Completo: </label>
-          <input type="text" class="form-control" placeholder="nome" id="nome" name="nome">
+          <label >Nome do plano: </label>
+          <input type="text" class="form-control" placeholder="Nome do plano" id="nome_do_plano" name="nome_do_plano">
         </div>
         <div class="input-container">
-          <label for="telefone">Telefone: </label>
-          <input type="text" class="form-control" placeholder="telefone" id="telefone" name="telefone">
+          <label for="telefone">Quantidade de aulas: </label>
+          <input type="text" class="form-control" placeholder="Quantidade de aulas" id="qtd_aulas" name="qtd_aulas">
         </div>
         <div class="input-container">
-          <label for="cpf">CPF: </label>
-          <input type="text" class="form-control" placeholder="CPF" id="cpf" name="cpf">
+          <label for="cpf">Valor: </label>
+          <input type="text" class="form-control" placeholder="Valor" id="Valor" name="Valor">
         </div>
-        <div class="input-container">
+        <!-- <div class="input-container">
           <label for="data-final">Data final: </label>
           <input type="text" class="form-control" placeholder="Data final do plano" id="data_final" name="data_final">
         </div>
         <div class="input-container">
           <label for="plano">Plano escolhido:</label>
           <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
-        </div>
+        </div> -->
         <div id="buttons-div">
           <input type="submit" value="Cadastrar">
           <input type="button" value="Cancelar" onclick="javascript:history.back()">
