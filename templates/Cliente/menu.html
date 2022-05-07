@@ -34,10 +34,19 @@
             <td>Novo Plano</td>
           </div>
           <div>
+            <form role="form" action="{% url 'novo_acesso' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <button>
+                  <img id=alunos src="{% static 'icons/aula.svg' %}">
+                </button>
+            </form>
+            <td>Novo Acesso</td>
+          </div>
+          <div>
             <form role="form" action="{% url 'clientes' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/users.svg' %}">
+                  <img id=alunos src="{% static 'icons/user.svg' %}">
                 </button>
             </form>
             <td>Alunos</td>
@@ -52,7 +61,7 @@
             <td>Planos</td>
           </div>
           <div>
-            <form role="form" action="{% url 'clientes' %}" method="POST" enctype="multipart/form-data">
+            <form role="form" action="{% url 'acesso' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
                   <img id=alunos src="{% static 'icons/users.svg' %}">
@@ -64,7 +73,7 @@
             <form role="form" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/users.svg' %}">
+                  <img id=alunos src="{% static 'icons/settings.svg' %}">
                 </button>
             </form>
             <td>Logout</td>
