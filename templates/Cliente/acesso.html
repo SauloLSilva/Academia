@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/clientes1.css' %}">
+  <link rel="stylesheet" href="{% static 'css/global.css' %}">
+  <title>D Lions</title>
+</head>
+<body id="clientes-container">
+  <section class="clientes-content">
+    <p>CLIENTES</p>
+    <nav class="clientes-painel">
+      <div class="clientes-lista">
+        
+        <div class="area-clientes">
+          <table>
+            <thead>
+              <th>Nome Completo</th>
+              <th>CPF</th>
+              <th>Data Acesso</th>
+            </thead>
+            <tbody>
+              {%for acesso_cliente in usuario %}
+              <div>
+              <tr>
+                <td><a id="add-link" href="/usuario/{{acesso_cliente.nome_acesso}}">{{acesso_cliente.nome_acesso}}</a></td>
+                <td><a id="add-link" href="/usuario/{{acesso_cliente.cpf_acesso}}">{{acesso_cliente.cpf_acesso}}</a></td>
+                <td><a id="add-link" href="/usuario/{{acesso_cliente.data_acesso}}">{{acesso_cliente.data_acesso}}</a></td>
+              </tr>
+              {% endfor %}
+            </div>
+            </tbody>
+          </table>
+        </div>
+        <button name="voltar" onclick="javascript:history.back()">Voltar</button>
+      </div>
+    </nav>
+  </section>
+</body>
+</html>
