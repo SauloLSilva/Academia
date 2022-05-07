@@ -2,7 +2,7 @@ from csv import reader
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import admin
-from .models import Usuarios, Adm_Usuarios
+from .models import Usuarios, Adm_Usuarios, acesso_cliente
 import datetime
 # Create your views here.
 
@@ -18,6 +18,13 @@ def menu(request):
 
 def cadastro(request):
     return render(request, 'Cliente/cadastro.html')
+
+def acesso(request):
+    cliente = acesso_cliente.objects.all().order_by('-data_acesso')
+    return render (request, 'Cliente/acesso.html', {'usuario': cliente})
+
+def novo_acesso(request):
+    return render(request, 'Cliente/novo_acesso.html')
 
 def cpf_validate(numbers):
     #  Obtém os números do CPF e ignora outros caracteres
@@ -50,6 +57,10 @@ def realizar_cadastro(request):
         cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
         data = request.POST['data_final']
         plano = request.POST['plano']
+        try:
+            cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+        except Exception as err:
+            raise ValueError('CPF Inválido ou inexistente')
         if valida_cpf == False:
             raise ValueError('CPF Inválido ou inexistente')
         else:
@@ -65,3 +76,25 @@ def realizar_cadastro(request):
             return redirect('cadastro')
     else:
         return render(request, 'Cliente/cadastro.html')
+
+def realizar_acesso(request):
+    if request.method == 'POST':
+        nome_acesso = request.POST['nome_acesso']
+        cpf_acesso = request.POST['cpf_acesso']
+        valida_cpf = cpf_validate(cpf_acesso)
+        try:
+            cpf = int(''.join(i for i in cpf_acesso if i.isdigit()))
+        except Exception as err:
+            raise ValueError('CPF Inválido ou inexistente')
+        if valida_cpf == False:
+            raise ValueError('CPF Inválido ou inexistente')
+        else:
+            cadastro = acesso_cliente.objects.criar_acesso(
+                nome_acesso = nome_acesso,
+                cpf_acesso = cpf,
+                data_acesso = datetime.datetime.now(),
+            )
+            cadastro.save()
+            return redirect('novo_acesso')
+    else:
+        return render(request, 'Cliente/novo_acesso.html')
