@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D Lions</title>
+  <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+  <link rel="stylesheet" href="{% static 'css/global.css' %}">
+</head>
+<body id="cadastro-container">
+  <section class="cadastro-content">
+    <p>CADASTRO</p>
+    <nav class="cadastro-painel">
+      <div class="cadastro-header-painel">
+        <div class="cadastro-buttons">
+    <div class="area-cadastro">
+      <form id="form-cadastro" role="form" method="post" action="{% url 'criar_plano' %} " enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-container">
+          <label >Nome do plano: </label>
+          <input type="text" class="form-control" placeholder="Nome do plano" id="nome_do_plano" name="nome_do_plano">
+        </div>
+        <div class="input-container">
+          <label for="telefone">Quantidade de aulas: </label>
+          <input type="text" class="form-control" placeholder="Quantidade de aulas" id="qtd_aulas" name="qtd_aulas">
+        </div>
+        <div class="input-container">
+          <label for="cpf">Valor: </label>
+          <input type="text" class="form-control" placeholder="Valor" id="Valor" name="Valor">
+        </div>
+        <!-- <div class="input-container">
+          <label for="data-final">Data final: </label>
+          <input type="text" class="form-control" placeholder="Data final do plano" id="data_final" name="data_final">
+        </div>
+        <div class="input-container">
+          <label for="plano">Plano escolhido:</label>
+          <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
+        </div> -->
+        <div id="buttons-div">
+          <input type="submit" value="Cadastrar">
+          <input type="button" value="Cancelar" onclick="javascript:history.back()">
+        </div>
+      </form>
+    </div>
+        </div>
+      </div>
+
+    </nav>
+     <!-- <div class="lista-alunos">
+     <form id="form-cadastro" action="">
+        <div class="input-container">
+          <label for="cadastro">cadastro: </label>
+          <input type="text" name="cadastro" id="cadastro">
+        </div>
+        <div class="input-container">
+          <label for="senha">Senha:</label>
+          <input type="text" name="senha" id="senha">
+        </div>
+        <div id="buttons-div">
+        <input type="button" value="cadastro">
+        <input type="button" value="Sair">
+        </div>
+      </form>
+    </div> -->
+  </section>
+</body>
+</html>
