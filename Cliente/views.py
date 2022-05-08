@@ -1,4 +1,6 @@
 from csv import reader
+from dataclasses import dataclass
+import time
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import admin
@@ -58,6 +60,7 @@ def realizar_cadastro(request):
         data = request.POST['data_final']
         plano = request.POST['plano']
         quantidade_aulas = request.POST['quantidade_aulas']
+        acesso_anterior = datetime.datetime.now()
         try:
             cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
         except Exception as err:
@@ -72,7 +75,8 @@ def realizar_cadastro(request):
                 data_inicio = datetime.datetime.now(),
                 data_final = data,
                 plano_escolhido = plano,
-                quantidade_aulas = quantidade_aulas
+                quantidade_aulas = quantidade_aulas,
+                acesso_anterior = acesso_anterior
             )
             cadastro.save()
             return redirect('cadastro')
@@ -81,9 +85,10 @@ def realizar_cadastro(request):
 
 def realizar_acesso(request):
     if request.method == 'POST':
-        nome_acesso = request.POST['nome_acesso']
+        nome_acesso = ''
         cpf_acesso = request.POST['cpf_acesso']
         valida_cpf = cpf_validate(cpf_acesso)
+        data_acesso = datetime.datetime.now()
         try:
             cpf = int(''.join(i for i in cpf_acesso if i.isdigit()))
         except Exception as err:
@@ -94,12 +99,13 @@ def realizar_acesso(request):
             cadastro = acesso_cliente.objects.criar_acesso(
                 nome_acesso = nome_acesso,
                 cpf_acesso = cpf,
-                data_acesso = datetime.datetime.now(),
+                data_acesso = data_acesso
             )
             cadastro.save()
 
             contagem = acesso_cliente.objects.contagem_acesso(
-                cpf = cpf
+                cpf = cpf,
+                acesso_anterior = data_acesso
             )
 
             return redirect('novo_acesso')

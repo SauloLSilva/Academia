@@ -1,11 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 import sqlite3
+import datetime
 # Create your models here.
 
 class Adm_Usuarios(BaseUserManager):
     
-    def criar_cliente(self, nome_completo, telefone, cpf, data_inicio, data_final, plano_escolhido,quantidade_aulas):
+    def criar_cliente(self, nome_completo, telefone, cpf, data_inicio, data_final, plano_escolhido,quantidade_aulas, acesso_anterior):
         if not nome_completo:
             raise ValueError('Usuario precisa ter um nome completo')
         if not plano_escolhido:
@@ -20,20 +21,29 @@ class Adm_Usuarios(BaseUserManager):
             data_inicio = data_inicio,
             data_final = data_final,
             plano_escolhido = plano_escolhido,
-            quantidade_aulas = quantidade_aulas
+            quantidade_aulas = quantidade_aulas,
+            acesso_anterior = acesso_anterior
         )
         cliente.save(using=self._db)
     
         return cliente
 
     def criar_acesso(self, nome_acesso, cpf_acesso, data_acesso):
-        if not nome_acesso:
-            raise ValueError('Usuario precisa ter um nome completo')
+        # if not nome_acesso:
+        #     raise ValueError('Usuario precisa ter um nome completo')
         if not cpf_acesso:
             raise ValueError('Necessário CPF')
 
+        conectar = sqlite3.connect('academiaDjango.db')
+        cursor = conectar.cursor()
+        query = cursor.execute('''select * from Cliente_usuarios 
+        where cpf == {}'''.format(cpf_acesso))
+
+        retorno = (query.fetchone())
+        aluno = retorno[3]
+
         cliente = self.model(
-            nome_acesso = nome_acesso,
+            nome_acesso = aluno,
             cpf_acesso = cpf_acesso,
             data_acesso = data_acesso,
         )
@@ -41,7 +51,7 @@ class Adm_Usuarios(BaseUserManager):
     
         return cliente
     
-    def contagem_acesso(self, cpf):
+    def contagem_acesso(self, cpf, acesso_anterior):
         conectar = sqlite3.connect('academiaDjango.db')
         cursor = conectar.cursor()
         query = cursor.execute('''select * from Cliente_usuarios 
@@ -55,12 +65,24 @@ class Adm_Usuarios(BaseUserManager):
             set quantidade_aulas = quantidade_aulas - 1 
             where cpf == {};'''.format(cpf))
             conectar.commit()
+            # conectar.close()
+            
+            query2 = cursor.execute('''update Cliente_usuarios 
+            set acesso_anterior = '{}' 
+            where cpf == {};'''.format(acesso_anterior,cpf))
+            conectar.commit()
             conectar.close()
 
         elif qtd_restante == 1:
             query = cursor.execute('''update Cliente_usuarios 
             set quantidade_aulas = quantidade_aulas - 1 
             where cpf == {};'''.format(cpf))
+            conectar.commit()
+            # conectar.close()
+            
+            query2 = cursor.execute('''update Cliente_usuarios 
+            set acesso_anterior = '{}' 
+            where cpf == {};'''.format(acesso_anterior,cpf))
             conectar.commit()
             conectar.close()
             raise ValueError('Cliente fez última aula contratada, atualizar plano')
@@ -80,6 +102,7 @@ class Usuarios(AbstractBaseUser):
     data_final = models.CharField(max_length=30)
     plano_escolhido = models.CharField(max_length=50)
     quantidade_aulas = models.CharField(max_length=3)
+    acesso_anterior = models.DateTimeField(max_length=50)
 
     
     data_criado = models.DateTimeField(auto_now_add=True)

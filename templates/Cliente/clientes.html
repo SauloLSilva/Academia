@@ -25,6 +25,7 @@
               <th>Data Matrícula</th>
               <th>Data Final</th>
               <th>Aulas Restantes</th>
+              <th>Último Acesso</th>
             </thead>
             <tbody>
               {%for Usuarios in usuario %}
@@ -36,6 +37,7 @@
                 <td><a id="add-link" href="/usuario/{{Usuarios.data_inicio}}">{{Usuarios.data_inicio}}</a></td>
                 <td><a id="add-link" href="/usuario/{{Usuarios.data_final}}">{{Usuarios.data_final}}</a></td>
                 <td><a id="add-link" href="/usuario/{{Usuarios.quantidade_aulas}}">{{Usuarios.quantidade_aulas}}</a></td>
+                <td><a id="add-link" href="/usuario/{{Usuarios.acesso_anterior}}">{{Usuarios.acesso_anterior}}</a></td>
               </tr>
               {% endfor %}
             </div>
