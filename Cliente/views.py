@@ -57,6 +57,7 @@ def realizar_cadastro(request):
         cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
         data = request.POST['data_final']
         plano = request.POST['plano']
+        quantidade_aulas = request.POST['quantidade_aulas']
         try:
             cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
         except Exception as err:
@@ -70,7 +71,8 @@ def realizar_cadastro(request):
                 cpf = cpf,
                 data_inicio = datetime.datetime.now(),
                 data_final = data,
-                plano_escolhido = plano
+                plano_escolhido = plano,
+                quantidade_aulas = quantidade_aulas
             )
             cadastro.save()
             return redirect('cadastro')
@@ -95,6 +97,11 @@ def realizar_acesso(request):
                 data_acesso = datetime.datetime.now(),
             )
             cadastro.save()
+
+            contagem = acesso_cliente.objects.contagem_acesso(
+                cpf = cpf
+            )
+
             return redirect('novo_acesso')
     else:
         return render(request, 'Cliente/novo_acesso.html')
