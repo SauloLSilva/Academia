@@ -28,7 +28,7 @@ class Adm_Usuarios(BaseUserManager):
     
         return cliente
 
-    def criar_acesso(self, nome_acesso, cpf_acesso, data_acesso):
+    def criar_acesso(self, nome_acesso, cpf_acesso, data_acesso, status_acesso):
         # if not nome_acesso:
         #     raise ValueError('Usuario precisa ter um nome completo')
         if not cpf_acesso:
@@ -49,15 +49,17 @@ class Adm_Usuarios(BaseUserManager):
                 nome_acesso = aluno,
                 cpf_acesso = cpf_acesso,
                 data_acesso = data_acesso,
+                status_acesso = 'Liberado',
             )
             cliente.save(using=self._db)
     
             return cliente
         else:
             cliente = self.model(
-                nome_acesso = ('{} (bloqueado)'.format(aluno)),
+                nome_acesso = aluno,
                 cpf_acesso = cpf_acesso,
                 data_acesso = data_acesso,
+                status_acesso = 'Bloqueado',
             )
             cliente.save(using=self._db)
     
@@ -133,8 +135,9 @@ class acesso_cliente(AbstractBaseUser):
     nome_acesso = models.CharField(max_length=255)
     cpf_acesso = models.CharField(max_length=13)
     data_acesso = models.DateTimeField(max_length=30)
+    status_acesso = models.CharField(max_length=13)
 
-    REQUIRED_FIELDS = ['nome_acesso','cpf_acesso', 'data_acesso']
+    REQUIRED_FIELDS = ['nome_acesso','cpf_acesso', 'data_acesso', 'status_acesso']
     USERNAME_FIELD = 'nome_acesso'
 
     objects = Adm_Usuarios()
