@@ -89,6 +89,7 @@ def realizar_acesso(request):
         cpf_acesso = request.POST['cpf_acesso']
         valida_cpf = cpf_validate(cpf_acesso)
         data_acesso = datetime.datetime.now()
+        status_acesso = ''
         try:
             cpf = int(''.join(i for i in cpf_acesso if i.isdigit()))
         except Exception as err:
@@ -99,7 +100,8 @@ def realizar_acesso(request):
             cadastro = acesso_cliente.objects.criar_acesso(
                 nome_acesso = nome_acesso,
                 cpf_acesso = cpf,
-                data_acesso = data_acesso
+                data_acesso = data_acesso,
+                status_acesso = status_acesso
             )
             cadastro.save()
 
