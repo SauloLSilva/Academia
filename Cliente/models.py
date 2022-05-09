@@ -41,15 +41,27 @@ class Adm_Usuarios(BaseUserManager):
 
         retorno = (query.fetchone())
         aluno = retorno[3]
+        qtd_aulas = int(retorno[12])
 
-        cliente = self.model(
-            nome_acesso = aluno,
-            cpf_acesso = cpf_acesso,
-            data_acesso = data_acesso,
-        )
-        cliente.save(using=self._db)
+        if qtd_aulas !=0:
+
+            cliente = self.model(
+                nome_acesso = aluno,
+                cpf_acesso = cpf_acesso,
+                data_acesso = data_acesso,
+            )
+            cliente.save(using=self._db)
     
-        return cliente
+            return cliente
+        else:
+            cliente = self.model(
+                nome_acesso = ('{} (bloqueado)'.format(aluno)),
+                cpf_acesso = cpf_acesso,
+                data_acesso = data_acesso,
+            )
+            cliente.save(using=self._db)
+    
+            return cliente
     
     def contagem_acesso(self, cpf, acesso_anterior):
         conectar = sqlite3.connect('academiaDjango.db')
