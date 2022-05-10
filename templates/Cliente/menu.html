@@ -9,10 +9,35 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/global.css' %}">
   <title>D Lions</title>
+  <script>
+    function relogio(){
+      var data = new Date();
+      var hora = data.getHours();
+      var min = data. getMinutes();
+      var seg = data.getSeconds();
+
+      if(hora <10){
+        hora="0"+hora
+      }
+
+      if(min <10){
+        hora="0"+hora
+      }
+      
+      if(seg <10){
+        hora="0"+hora
+      }
+
+      var horas = hora +":"+ min+":"+seg;
+      document.getElementById("rel").value = horas;
+      }
+    var tempo = setInterval(relogio,1000)
+  </script>
 </head>
 <body id="home-container">
   <section class="home-content">
     <nav class="home-icons">
+      <div> <center> <input type="text" id="rel"</center></div>
       <div class="home-header-painel">
         <div class="home-buttons">
           <div>
@@ -98,7 +123,6 @@
           </button> -->
         </div>
       </div>
-  
     </nav>
     <div class="lista-alunos">
     </div>
