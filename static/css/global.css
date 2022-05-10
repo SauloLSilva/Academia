@@ -41,6 +41,7 @@
   body, input, textarea, button {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
+    text-align: center;
   }
 
   h1, h2, h3, h4, h5, h6, strong {
@@ -93,3 +94,12 @@
       filter: brightness(0.9)
     }
   } */
+  #rel{
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+    font-size: 22px;
+    width: 150px;
+    height: max-content;
+    background-color: rgba(0, 0, 0, 0);
+  }
