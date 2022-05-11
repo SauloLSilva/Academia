@@ -39,31 +39,34 @@ class Adm_Usuarios(BaseUserManager):
         query = cursor.execute('''select * from Cliente_usuarios 
         where cpf == {}'''.format(cpf_acesso))
 
-        retorno = (query.fetchone())
-        aluno = retorno[3]
-        qtd_aulas = int(retorno[12])
+        try:
+            retorno = (query.fetchone())
+            aluno = retorno[3]
+            qtd_aulas = int(retorno[12])
 
-        if qtd_aulas !=0:
+            if qtd_aulas !=0:
 
-            cliente = self.model(
-                nome_acesso = aluno,
-                cpf_acesso = cpf_acesso,
-                data_acesso = data_acesso,
-                status_acesso = 'Liberado',
-            )
-            cliente.save(using=self._db)
-    
-            return cliente
-        else:
-            cliente = self.model(
-                nome_acesso = aluno,
-                cpf_acesso = cpf_acesso,
-                data_acesso = data_acesso,
-                status_acesso = 'Bloqueado',
-            )
-            cliente.save(using=self._db)
-    
-            return cliente
+                cliente = self.model(
+                    nome_acesso = aluno,
+                    cpf_acesso = cpf_acesso,
+                    data_acesso = data_acesso,
+                    status_acesso = 'Liberado',
+                )
+                cliente.save(using=self._db)
+        
+                return cliente
+            else:
+                cliente = self.model(
+                    nome_acesso = aluno,
+                    cpf_acesso = cpf_acesso,
+                    data_acesso = data_acesso,
+                    status_acesso = 'Bloqueado',
+                )
+                cliente.save(using=self._db)
+        
+                return cliente
+        except Exception as err:
+            raise ValueError('CPF não encontrado')
     
     def contagem_acesso(self, cpf, acesso_anterior):
         conectar = sqlite3.connect('academiaDjango.db')
