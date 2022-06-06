@@ -1,15 +1,3 @@
-#rel {
-  text-align: center;
-  color: var(--shape);
-  font-weight: bold;
-  font-size: 22px;
-  width: 160px;
-  height: max-content;
-  background-color: var(--background_container);
-  border-radius: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
 .switch__container {
   position: absolute;
   top: 20px;
@@ -30,14 +18,15 @@
 }
 .switch--shadow + label {
   padding: 2px;
-  width: 90px;
-  height: 30px;
-  background-color: #dddddd;
+  width: 80px;
+  height: 20px;
+  background-color: var(--background_transp);
   border-radius: 60px;
 }
 
 .switch--shadow + label:before,
 .switch--shadow + label:after {
+  background-color: var(--background_transp);
   display: block;
   position: absolute;
   top: 1px;
@@ -47,23 +36,23 @@
 }
 .switch--shadow + label:before {
   right: 1px;
-  background-color: #f1f1f1;
   border-radius: 60px;
   transition: all 0.4s;
 }
 .switch--shadow + label:after {
-  width: 25px;
-  background-color: #fff;
+  width: 20px;
+  background-color: var(--red);
   border-radius: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   transition: all 0.4s;
 }
 
-.switch--shadow:checked + label:before {
-  background-color: var(--red);
-}
 .switch--shadow:checked + label:after {
   transform: translateX(60px);
+  background-color: var(--background_transp);
+}
+.switch--shadow:checked + label:before {
+  background-color: var(--white);
 }
 body {
   background-color: var(--background);
@@ -85,7 +74,8 @@ body {
 .title {
   position: relative;
   top: -3.25rem;
-  left: -12.5rem;
+  /* left: -8rem; */
+  left: 0;
 }
 .title p {
   font-size: 2.5rem;
@@ -93,7 +83,7 @@ body {
   padding: -20rem;
 }
 .home-content {
-  width: 35vw;
+  width: 40vw;
   max-width: 800px;
   display: flex;
   flex-direction: column;

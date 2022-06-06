@@ -1,3 +1,19 @@
+.title {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
+.title img {
+  width: 2.5rem;
+  margin-right: 1rem;
+}
+.title.peso img {
+  width: 3.5rem;
+  object-fit: contain;
+}
+
 #planos-container {
   width: 100vw;
   height: 100vh;
@@ -28,7 +44,7 @@
 }
 .planos-lista {
   width: 100%;
-  background-color: var(--bg_frame);
+  background-color: var(--background);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -51,7 +67,7 @@ td {
   padding: 5px;
 }
 .area-planos table thead {
-  background-color: var(--bg_home);
+  background-color: var(--background_container);
   height: 2.5rem;
   color: var(--shape);
 }
@@ -62,7 +78,7 @@ td {
   color: var(--primary_dark);
 }
 .area-planos tr:hover {
-  background-color: var(--bg_home);
+  background-color: var(--background_container);
   color: var(--shape);
 }
 .area-planos table td {
@@ -70,6 +86,12 @@ td {
 }
 .area-planos table td.button-edit {
   text-align: center;
+}
+.area-planos a {
+  color: var(--text-title);
+}
+.area-planos tr:hover a {
+  color: var(--shape);
 }
 .planos-lista button[name="editar"] {
   height: 1.5rem;
@@ -81,15 +103,15 @@ td {
   box-sizing: content-box;
 }
 .planos-lista button[name="voltar"] {
-  height: 3.5rem;
-  font-size: 1.2rem;
-  padding: 0.8rem 1.8rem;
-  border-radius: 5px;
-  margin: 20px;
-  border-color: var(--text);
-  background-color: var(--bg_home);
-  color: var(--shape);
+  width: 8rem;
+  height: 3.2rem;
+  font-size: 1.4rem;
+  /* padding: 0.8rem 1.8rem; */
+  border-radius: 10px;
+  margin-top: 30px;
+  color: var(--background);
+  background-color: var(--background_container);
 }
-#add-link{
+#add-link {
   text-decoration: none;
 }

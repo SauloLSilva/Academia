@@ -1,30 +1,34 @@
 #painel-inicial {
+  background: url("../assets/login.png") no-repeat center;
+  background-size: contain;
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primary_dark);
+  background-color: var(--secondary_dark);
+  /* background: url('../../images/landing.svg') ; */
 }
 .login-painel {
-  width: 60vw;
-  height: 60vh;
+  width: 75%;
+  height: 75%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   /* box-shadow: 0 8px 8px 0 rgba(255, 255, 255, 0.4); */
 }
 .logo-painel {
-  width: 30%;
+  width: 50%;
   height: 100%;
-  background-color: var(--secondary_dark);
+  background-color: var(--background_transp);
   display: flex;
   flex-direction: column;
   flex: 1;
   justify-content: center;
   align-items: center;
-  border-radius: 8px 0 0 8px;
+  border-radius: 50px 10px 50px 10px;
+
   /* box-shadow: 0 2px 8px rgba(255, 255, 255, 0.4); */
 }
 .logo-painel p {
@@ -33,44 +37,43 @@
   font-weight: bold;
 }
 .logo-painel img {
-  width: 150px;
+  width: 250px;
 }
 
 .area-login {
-  width: 70%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  background-color: var(--primary);
-  border-radius: 0 8px 8px 0;
 }
 .area-login .input-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
+  /* justify-content: space-between; */
   padding: 10px;
 }
 .area-login label {
   color: var(--shape);
-  font-size: 2rem;
+  font-size: 1.2rem;
+  padding-left: 1.5rem;
+  padding-bottom: 5px;
 }
 .area-login #form-login input {
-  height: 3.8rem;
+  height: 2rem;
   padding: 1pt;
   margin-left: 1rem;
   border-radius: 5px;
   font-size: 1.2rem;
   color: var(--text-title);
   border-color: var(--text);
+  border-radius: 10px;
 }
-.area-login #form-login #buttons-div input[type="button"] {
+#login-button {
   width: 8rem;
-  height: 3.5rem;
+  height: 4rem;
   font-size: 1.4rem;
-  padding: 0.8rem 1.8rem;
+  padding: 3rem 1.8rem;
   border-radius: 5px;
-  margin: 50px;
+  margin: 2rem;
 }
