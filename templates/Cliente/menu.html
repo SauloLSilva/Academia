@@ -1,131 +1,78 @@
+{% extends 'Cliente/base.html' %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block estilo %}
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/global.css' %}">
-  <title>D Lions</title>
-  <script>
-    function relogio(){
-      var data = new Date();
-      var hora = data.getHours();
-      var min = data. getMinutes();
-      var seg = data.getSeconds();
+{% endblock estilo %}
+{% block header %}
+  <div class="title">
+    <p>Olá Rodrigo</p>
+  </div>
+{% endblock header %}
+{% block conteudo %}
 
-      if(hora <10){
-        hora="0"+hora
-      }
-
-      if(min <10){
-        min="0"+min
-      }
-      
-      if(seg <10){
-        seg="0"+seg
-      }
-
-      var horas = hora +":"+ min+":"+seg;
-      document.getElementById("rel").value = horas;
-      }
-    var tempo = setInterval(relogio,1000)
-  </script>
-</head>
-<body id="home-container">
-  <section class="home-content">
-    <nav class="home-icons">
-      <div> <center> <input type="text" id="rel"</center></div>
+      <div> 
+        <center> 
+          <input type="text" id="rel">
+        </center>
+      </div>
       <div class="home-header-painel">
         <div class="home-buttons">
           <div>
             <form role="form" action="{% url 'cadastro' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/aula.svg' %}">
+                  <img id=alunos src="{% static 'icons/prancheta.png' %}">
                 </button>
             </form>
-            <td>Matrícula</td>
+            <td class="label">matrícula</td>
           </div>
           <div>
             <form role="form" action="{% url 'novo_plano' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/aula.svg' %}">
+                  <img id=alunos src="{% static 'icons/sifrao.png' %}">
                 </button>
             </form>
-            <td>Novo Plano</td>
+            <td>novo plano</td>
           </div>
           <div>
             <form role="form" action="{% url 'novo_acesso' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/aula.svg' %}">
+                  <img id=alunos src="{% static 'icons/cracha.png' %}">
                 </button>
             </form>
-            <td>Novo Acesso</td>
+            <td>criar acesso</td>
           </div>
+        </div>
+        <div class="home-buttons">
           <div>
             <form role="form" action="{% url 'clientes' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/user.svg' %}">
+                  <img id=alunos src="{% static 'icons/pessoas.png' %}">
                 </button>
             </form>
-            <td>Alunos</td>
+            <td>alunos</td>
           </div>
           <div>
             <form role="form" action="{% url 'planos' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/dollar.svg' %}">
+                  <img style="width: 90%;" id=alunos src="{% static 'icons/peso.png' %}" >
                 </button>
             </form>
-            <td>Planos</td>
+            <td>planos</td>
           </div>
           <div>
             <form role="form" action="{% url 'acesso' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/users.svg' %}">
+                  <img id=alunos src="{% static 'icons/digital.png' %}">
                 </button>
             </form>
-            <td>Acesso</td>
+            <td>acesso</td>
           </div>
-          <div>
-            <form role="form" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-                <button>
-                  <img id=alunos src="{% static 'icons/settings.svg' %}">
-                </button>
-            </form>
-            <td>Logout</td>
-          </div>
-          <!-- <button class="icon">
-            <div class="home-button" >
-              <img id=sistema src="assets/icons/settings.svg">
-            </div>
-            <p>SISTEMA</p> -->
-          <!-- </button>
-          <button class="icon">
-            <div class="home-button" >
-              <img id=matricula src="assets/icons/user.svg">
-            </div>
-            <p>MATRÍCULA</p>
-          </button>
-          <button class="icon">
-            <div class="home-button" >
-              <img id=alunos src="assets/icons/users.svg">
-            </div>
-            <p>ALUNOS</p>
-          </button> -->
         </div>
       </div>
-    </nav>
-    <div class="lista-alunos">
-    </div>
-  </section>
-</body>
-</html>
+{% endblock conteudo %}

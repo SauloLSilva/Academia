@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{% static 'assets/logo.png' %}">
   <link rel="stylesheet" href="{% static 'css/login1.css' %}">
   <link rel="stylesheet" href="{% static 'css/global.css' %}">
   <title>D Lions</title>
@@ -13,23 +14,22 @@
 <body id="painel-inicial">
   <section class="login-painel">
     <div class="logo-painel">
-      <img id=logo src="{% static 'assets/logonovo.jpg' %}">
-      <p>ESCOLA D LIONS KUNG FU</p>
-    </div>
-    <div class="area-login">
-      <form id="form-login" action="">
-        <div class="input-container">
-          <label for="login">Login: </label>
-          <input type="text" name="login" id="login">
-        </div>
-        <div class="input-container">
-          <label for="senha">Senha:</label>
-          <input type="password" name="senha" id="senha">
-        </div>
-        <input type="button" onclick="location.href='menu';" value="Acessar" />
-      </form>
+      <img id=logo src="{% static 'assets/logo.png' %}">
+      <div class="area-login">
+        <form id="form-login" action="">
+          <div class="input-container">
+            <label for="login">Login </label>
+            <input type="text" name="login" id="login">
+          </div>
+          <div class="input-container">
+            <label for="senha">Senha</label>
+            <input type="password" name="senha" id="senha">
+          </div>
+          <input id= "login-button" type="button" onclick="location.href='menu';" value="Entrar" />
+        </form>
+      </div>
     </div>
   </section>
-  <script src="js/script.js"></script>
+    <script src={% static 'js/scripts.js'%}></script>
 </body>
 </html>
