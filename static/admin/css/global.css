@@ -1,59 +1,67 @@
-  :root{
-    --red: #E52E4D;
-    --green: #33CC95;
-    --blue: #5429CC;
-    --blue-light: #6933FF;
-    --text-title: #363F5F;
-    --text-body: #969CB2;
-    --background: #f0f2f5;
-    --shape: #FFFFFF;
-    --primary_dark: #363F5F;
+:root {
+  --red: #e52e4d;
+  --green: #33cc95;
+  --blue: #5429cc;
+  --blue-light: #6933ff;
+  --text-title: #363f5f;
+  --text-body: #969cb2;
+  --background: #f0f2f5;
+  --shape: #ffffff;
+  --primary_dark: #363f5f;
   --secondary_dark: #000000;
-    --primary: #FF0000;
-    --bg_home: #B22222;
-    --bg_cadastro:#A52A2A;
-    --icon: #6495ED;
-    --bg_frame: #D3D3D3;
-  }
-  /* font verdana 8 bold */
+  --secondary_transp: rgba(0, 0, 0, 0.9);
+  --primary: #ff0000;
+  --bg_home: #b22222;
+  --bg_cadastro: #a52a2a;
+  --icon: #6495ed;
+  --bg_frame: #d3d3d3;
+}
+/* font verdana 8 bold */
 
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  /* // font-size: 16px (Desktop) */
-  html{
-    @media (max-width: 1080px){
-      font-size: 93.75%; //15px
-    }
-    @media (max-width: 720px){
-      font-size: 87.5%;  //14px
-    }
+/* // font-size: 16px (Desktop) */
+html {
+  @media (max-width: 1080px) {
+    font-size: 93.75%; //15px
   }
-  /* //REM = 1rem = 16px */
-  body{
-    background: var(--secondary_dark);
-    -webkit-font-smoothing: antialiased;
+  @media (max-width: 720px) {
+    font-size: 87.5%; //14px
   }
+}
+/* //REM = 1rem = 16px */
+body {
+  background: var(--secondary_dark);
+  -webkit-font-smoothing: antialiased;
+}
 
-  body, input, textarea, button {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-  }
+body,
+input,
+textarea,
+button {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
 
-  h1, h2, h3, h4, h5, h6, strong {
-    font-weight: 600;
-  }
- 
-  button {
-    cursor: pointer;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong {
+  font-weight: 600;
+}
 
-  
+button {
+  cursor: pointer;
+}
 
-  /* [disabled] {
+/* [disabled] {
     opacity: 0.6;
     cursor: not-allowed;
   }
@@ -89,7 +97,7 @@
     background: transparent;
     transition: 0.2s; */
 
-    /* &:hover{
+/* &:hover{
       filter: brightness(0.9)
     }
   } */
