@@ -72,7 +72,7 @@
   margin-left: 1rem;
   border-radius: 5px;
   font-size: 1rem;
-  color: var(--text-title);
+  color: var(--black);
   border-color: var(--text);
   border-radius: 10px;
 }
