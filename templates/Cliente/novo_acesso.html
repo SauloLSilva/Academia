@@ -1,22 +1,20 @@
+{% extends 'Cliente/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D Lions</title>
-  <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
-  <link rel="stylesheet" href="{% static 'css/global.css' %}">
-</head>
-<body id="cadastro-container">
-  <section class="cadastro-content">
-    <p>NOVO ACESSO</p>
-    <nav class="cadastro-painel">
+{% block estilo %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock estilo %}
+
+{% block header %}
+  <div class="title cracha">
+    <img id=alunos src="{% static 'icons/cracha.png' %}">
+    <p>novo acesso</p>
+  </div>
+{% endblock header %}
+{% block conteudo %}
       <div class="cadastro-header-painel">
         <div class="cadastro-buttons">
-    <div class="area-cadastro">
+    <div class="area-cadastro" style="margin-top: 50px">
       <form id="form-cadastro" role="form" method="post" action="{% url 'realizar_acesso' %} " enctype="multipart/form-data">
         {% csrf_token %}
         <!-- <div class="input-container">
@@ -39,7 +37,7 @@
           <label for="plano">Plano escolhido:</label>
           <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
         </div> -->
-        <div id="buttons-div">
+        <div id="buttons-div" style="margin-top: 80px">
           <input type="submit" value="Adicionar" onclick="javascrip:alert('Acesso computado')">
           <input type="button" value="Cancelar" onclick="javascript:history.back()">
         </div>
@@ -48,23 +46,4 @@
         </div>
       </div>
 
-    </nav>
-     <!-- <div class="lista-alunos">
-     <form id="form-cadastro" action="">
-        <div class="input-container">
-          <label for="cadastro">cadastro: </label>
-          <input type="text" name="cadastro" id="cadastro">
-        </div>
-        <div class="input-container">
-          <label for="senha">Senha:</label>
-          <input type="text" name="senha" id="senha">
-        </div>
-        <div id="buttons-div">
-        <input type="button" value="cadastro">
-        <input type="button" value="Sair">
-        </div>
-      </form>
-    </div> -->
-  </section>
-</body>
-</html>
+{% endblock conteudo %}

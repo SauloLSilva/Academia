@@ -1,74 +1,54 @@
+{% extends 'Cliente/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D Lions</title>
-  <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
-  <link rel="stylesheet" href="{% static 'css/global.css' %}">
-</head>
-<body id="cadastro-container">
-  <section class="cadastro-content">
-    <p>CADASTRO</p>
+{% block estilo %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock estilo %}
+
+{% block header %}
+  <div class="title">
+    <img id=alunos src="{% static 'icons/prancheta.png' %}">
+    <p>matrícula</p>
+  </div>
+{% endblock header %}
+{% block conteudo %}
     <nav class="cadastro-painel">
       <div class="cadastro-header-painel">
         <div class="cadastro-buttons">
-    <div class="area-cadastro">
-      <form id="form-cadastro" role="form" method="post" action="{% url 'realizar_cadastro' %} " enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="input-container">
-          <label >Nome Completo*: </label>
-          <input type="text" class="form-control" placeholder="nome" id="nome" name="nome">
-        </div>
-        <div class="input-container">
-          <label for="telefone">Telefone: </label>
-          <input type="text" class="form-control" placeholder="telefone" id="telefone" name="telefone">
-        </div>
-        <div class="input-container">
-          <label for="cpf">CPF*: </label>
-          <input type="text" class="form-control" placeholder="CPF" id="cpf" name="cpf">
-        </div>
-        <div class="input-container">
-          <label for="data-final">Data final: </label>
-          <input type="text" class="form-control" placeholder="Data final do plano" id="data_final" name="data_final">
-        </div>
-        <div class="input-container">
-          <label for="plano">Plano escolhido*:</label>
-          <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
-        </div>
-        <div class="input-container">
-          <label for="plano">Quantidade de aulas*:</label>
-          <input type="text" class="form-control" placeholder="Quantidade de aulas" id="quantidade_aulas" name="quantidade_aulas">
-        </div>
-        <div id="buttons-div">
-          <input type="submit" value="Cadastrar" onclick="javascrip:alert('Cadastro realizado com sucesso')">
-          <input type="button" value="Cancelar" onclick="javascript:history.back()">
-        </div>
-      </form>
-    </div>
+          <div class="area-cadastro">
+            <form id="form-cadastro" role="form" method="post" action="{% url 'realizar_cadastro' %} " enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="input-container">
+                <label >Nome Completo*: </label>
+                <input type="text" class="form-control" placeholder="nome" id="nome" name="nome">
+              </div>
+              <div class="input-container">
+                <label for="telefone">Telefone: </label>
+                <input type="text" class="form-control" placeholder="telefone" id="telefone" name="telefone">
+              </div>
+              <div class="input-container">
+                <label for="cpf">CPF*: </label>
+                <input type="text" class="form-control" placeholder="CPF" id="cpf" name="cpf">
+              </div>
+              <div class="input-container">
+                <label for="data-final">Data final: </label>
+                <input type="text" class="form-control" placeholder="Data final do plano" id="data_final" name="data_final">
+              </div>
+              <div class="input-container">
+                <label for="plano">Plano escolhido*:</label>
+                <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
+              </div>
+              <div class="input-container">
+                <label for="plano">Quantidade de aulas*:</label>
+                <input type="text" class="form-control" placeholder="Quantidade de aulas" id="quantidade_aulas" name="quantidade_aulas">
+              </div>
+              <div id="buttons-div">
+                <input type="submit" value="Cadastrar" onclick="javascrip:alert('Cadastro realizado com sucesso')">
+                <input type="button" value="Cancelar" onclick="javascript:history.back()">
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-
     </nav>
-     <!-- <div class="lista-alunos">
-     <form id="form-cadastro" action="">
-        <div class="input-container">
-          <label for="cadastro">cadastro: </label>
-          <input type="text" name="cadastro" id="cadastro">
-        </div>
-        <div class="input-container">
-          <label for="senha">Senha:</label>
-          <input type="text" name="senha" id="senha">
-        </div>
-        <div id="buttons-div">
-        <input type="button" value="cadastro">
-        <input type="button" value="Sair">
-        </div>
-      </form>
-    </div> -->
-  </section>
-</body>
-</html>
+{% endblock conteudo %}

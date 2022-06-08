@@ -1,19 +1,17 @@
+{% extends 'Cliente/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block estilo %}
   <link rel="stylesheet" href="{% static 'css/clientes1.css' %}">
-  <link rel="stylesheet" href="{% static 'css/global.css' %}">
-  <title>D Lions</title>
-</head>
-<body id="clientes-container">
-  <section class="clientes-content">
-    <p>CONTROLE DE ACESSO</p>
-    <nav class="clientes-painel">
+{% endblock estilo %}
+
+{% block header %}
+  <div class="title">
+    <img id=alunos src="{% static 'icons/digital-branca.png' %}">
+    <p>controle de acesso</p>
+  </div>
+{% endblock header %}
+{% block conteudo %}
       <div class="clientes-lista">
         
         <div class="area-clientes">
@@ -40,7 +38,4 @@
         </div>
         <button name="voltar" onclick="javascript:history.back()">Voltar</button>
       </div>
-    </nav>
-  </section>
-</body>
-</html>
+{% endblock conteudo %}

@@ -1,20 +1,17 @@
+{% extends 'Cliente/base.html' %}
 {% load static %}
 
-
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block estilo %}
   <link rel="stylesheet" href="{% static 'css/planos1.css' %}">
-  <link rel="stylesheet" href="{% static 'css/global.css' %}">
-  <title>D Lions</title>
-</head>
-<body id="planos-container">
-  <section class="planos-content">
-    <p>PLANOS</p>
-    <nav class="planos-painel">
+{% endblock estilo %}
+
+{% block header %}
+  <div class="title peso">
+    <img id=alunos src="{% static 'icons/peso-branco.png' %}">
+    <p>planos</p>
+  </div>
+{% endblock header %}
+{% block conteudo %}
       <div class="planos-lista">
         
         <div class="area-planos">
@@ -39,7 +36,4 @@
         </div>
         <button name="voltar" onclick="javascript:history.back()">Voltar</button>
       </div>
-    </nav>
-  </section>
-</body>
-</html>
+{% endblock conteudo%}
