@@ -115,15 +115,15 @@ class Usuarios(AbstractBaseUser):
     nome_completo = models.CharField(max_length=255)
     telefone = models.CharField(max_length=11)
     cpf = models.CharField(max_length=13)
-    data_inicio = models.DateTimeField(auto_now_add=True)
+    data_inicio = models.CharField(max_length=30)
     data_final = models.CharField(max_length=30)
     plano_escolhido = models.CharField(max_length=50)
     quantidade_aulas = models.CharField(max_length=3)
-    acesso_anterior = models.DateTimeField(max_length=50)
+    acesso_anterior = models.CharField(max_length=30)
 
     
-    data_criado = models.DateTimeField(auto_now_add=True)
-    data_editado = models.DateTimeField(auto_now_add=True)
+    data_criado = models.CharField(max_length=30)
+    data_editado = models.CharField(max_length=30)
     is_active = models.BooleanField(default=True)
 
     REQUIRED_FIELDS = ['nome_completo','plano_escolhido', 'cpf', 'quantidade_aulas']
@@ -137,7 +137,7 @@ class Usuarios(AbstractBaseUser):
 class acesso_cliente(AbstractBaseUser):
     nome_acesso = models.CharField(max_length=255)
     cpf_acesso = models.CharField(max_length=13)
-    data_acesso = models.DateTimeField(max_length=30)
+    data_acesso = models.CharField(max_length=30)
     status_acesso = models.CharField(max_length=13)
 
     REQUIRED_FIELDS = ['nome_acesso','cpf_acesso', 'data_acesso', 'status_acesso']
