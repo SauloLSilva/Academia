@@ -60,7 +60,7 @@ def realizar_cadastro(request):
         data = request.POST['data_final']
         plano = request.POST['plano']
         quantidade_aulas = request.POST['quantidade_aulas']
-        acesso_anterior = datetime.datetime.now()
+        acesso_anterior = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
         try:
             cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
         except Exception as err:
@@ -72,7 +72,7 @@ def realizar_cadastro(request):
                 nome_completo = nome,
                 telefone = tel,
                 cpf = cpf,
-                data_inicio = datetime.datetime.now(),
+                data_inicio = datetime.datetime.now().strftime("%d/%m/%Y"),
                 data_final = data,
                 plano_escolhido = plano,
                 quantidade_aulas = quantidade_aulas,
@@ -88,7 +88,7 @@ def realizar_acesso(request):
         nome_acesso = ''
         cpf_acesso = request.POST['cpf_acesso']
         valida_cpf = cpf_validate(cpf_acesso)
-        data_acesso = datetime.datetime.now()
+        data_acesso = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
         status_acesso = ''
         try:
             cpf = int(''.join(i for i in cpf_acesso if i.isdigit()))
