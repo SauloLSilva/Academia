@@ -29,8 +29,6 @@ class Adm_Usuarios(BaseUserManager):
         return cliente
 
     def criar_acesso(self, nome_acesso, cpf_acesso, data_acesso, status_acesso):
-        # if not nome_acesso:
-        #     raise ValueError('Usuario precisa ter um nome completo')
         if not cpf_acesso:
             raise ValueError('Necessário CPF')
 
@@ -121,15 +119,20 @@ class Adm_Usuarios(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
             raise ValueError("Usuario deve ter um endereço de email")
+        if not password:
+            raise ValueError("Usuario deve ter uma senha")
 
-        usuario = self.model(
-            email=self.normalize_email(email)
-        )
+        try:
+            usuario = self.model(
+                email=self.normalize_email(email)
+            )
 
-        usuario.set_password(password)
-        usuario.save(using=self._db)
+            usuario.set_password(password)
+            usuario.save(using=self._db)
 
-        return usuario
+            return usuario
+        except Exception as err:
+            raise ValueError("Email já cadastrado, inválido ou tentativa de cadastro sem senha")
 
     def create_superuser(self, email, password=None):
         if not email:
