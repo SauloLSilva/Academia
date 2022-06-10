@@ -25,7 +25,7 @@
     {% block conteudo %}
     {% endblock conteudo %}
           <div class="logout">
-        <form role="form" action="{% url 'login' %}" method="POST" enctype="multipart/form-data">
+        <form role="form" action="{% url 'logout' %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
             <button>
               <img id=alunos src="{% static 'icons/logout.png' %}">
