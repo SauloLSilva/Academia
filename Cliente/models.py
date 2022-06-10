@@ -67,6 +67,14 @@ class Adm_Usuarios(BaseUserManager):
                 return cliente
         except Exception as err:
             raise ValueError('CPF não encontrado')
+
+    def deletar_cliente(id_usuario):
+        conectar = sqlite3.connect('academiaDjango.db')
+        cursor = conectar.cursor()
+        query = cursor.execute('''DELETE FROM Cliente_usuarios Where id = {}'''.format(id_usuario))
+        conectar.commit()
+        conectar.close()
+
     
     def contagem_acesso(self, cpf, acesso_anterior):
         conectar = sqlite3.connect('academiaDjango.db')
