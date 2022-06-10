@@ -17,6 +17,12 @@
     <div class="switch__container">
       <input id="switch-shadow" class="switch switch--shadow" type="checkbox"/>
       <label for="switch-shadow"></label>
+      <!-- <form role="form" action="{% url 'novo_usuario' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+          <button>
+            <img style="width: 10%;" id=alunos src="{% static 'icons/logout.png' %}" >
+          </button>
+      </form> -->
     </div>
     <section class="home-content">
       {% block header %}{% endblock header %}
