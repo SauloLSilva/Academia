@@ -15,25 +15,29 @@ def sessao_ativa(request):
     else:
         return False
 
-def clientes(request):
+def novo_usuario(request):
     if not sessao_ativa(request):
         return redirect('login')
 
-    cliente = Usuarios.objects.all().order_by('-data_inicio')
-    return render (request, 'Cliente/clientes.html', {'usuario': cliente})
+    print(request.user.is_superuser)
+
+    if request.user.is_superuser is not True:
+        raise PermissionError('Usuário atual não possui permissão para criar novos usuários')
     
+    return render(request, 'Cliente/novo_usuario.html')
+
 def criar_usuario(request):
     if not sessao_ativa(request):
         return redirect('login')
-    
+
     if request.method == 'POST':
     
-        email = request.POST['login_cliente']
-        senha = request.POST['senha_cliente']
+        email = request.POST['email_cadastro']
+        password = request.POST['senha_cadastro']
         
         user = academia_adm.objects.create_user(
             email = email, 
-            senha = senha
+            password = password
         )
 
         user.save()
@@ -51,11 +55,22 @@ def login(request):
 
     return render (request, 'Cliente/login.html')
 
+def logout(request):
+    auth.logout(request)
+    return redirect('login')
+
 def menu(request):
     if not sessao_ativa(request):
         return redirect('login')
 
     return render (request, 'Cliente/menu.html')
+
+def clientes(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+
+    cliente = Usuarios.objects.all().order_by('-data_inicio')
+    return render (request, 'Cliente/clientes.html', {'usuario': cliente})
 
 def cadastro(request):
     if not sessao_ativa(request):
@@ -183,11 +198,5 @@ def deletar_cliente(request):
         delete = Adm_Usuarios.deletar_cliente(
             id_usuario = id_deletar
         )
-        # print(id_usuario)
-        # usuario = Usuarios.objects.get(pk=id_usuario)
                 
         return redirect('clientes')
-
-def logout(request):
-    auth.logout(request)
-    return redirect('login')
