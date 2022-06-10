@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render
 from django.contrib import admin
 from .models import Usuarios, Adm_Usuarios, acesso_cliente
 import datetime
+from django.contrib import auth
 # Create your views here.
 
 def clientes(request):
@@ -14,6 +15,19 @@ def clientes(request):
     return render (request, 'Cliente/clientes.html', {'usuario': cliente})
     
 def login(request):
+    if request.method == 'POST':
+        acesso = request.POST['login_cliente']
+        senha = request.POST['senha_cliente']
+        print(acesso,senha)
+
+        # if Usuario.objects.filter(username=usuario).exists():
+        user = auth.authenticate(request, email=acesso, password=senha)
+        print(user)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('menu')
+
     return render (request, 'Cliente/login.html')
 
 def menu(request):
@@ -43,7 +57,7 @@ def cpf_validate(numbers):
     if cpf == cpf[::-1]:
         return False
 
-    #  Valida os dois dígitos verificadores
+        #  Valida os dois dígitos verificadores
     for i in range(9, 11):
         value = sum((cpf[num] * ((i+1) - num) for num in range(0, i)))
         digit = ((value * 10) % 11) % 10
@@ -57,7 +71,12 @@ def realizar_cadastro(request):
         tel = request.POST['telefone']
         cpf_cliente = request.POST['cpf']
         valida_cpf = cpf_validate(cpf_cliente)
-        cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+        
+        try:
+            cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+        except Exception as err:
+            raise ValueError('CPF Inválido ou inexistente')
+
         data = request.POST['data_final']
         plano = request.POST['plano']
         quantidade_aulas = request.POST['quantidade_aulas']
@@ -81,6 +100,7 @@ def realizar_cadastro(request):
             )
             cadastro.save()
             return redirect('cadastro')
+
     else:
         return render(request, 'Cliente/cadastro.html')
 
@@ -125,3 +145,7 @@ def deletar_cliente(request):
         # usuario = Usuarios.objects.get(pk=id_usuario)
                 
         return redirect('clientes')
+
+def logout(request):
+    auth.logout(request)
+    return redirect('login')
