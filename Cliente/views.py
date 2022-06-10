@@ -1,46 +1,79 @@
 from csv import reader
 from dataclasses import dataclass
-import time
 from urllib.request import Request
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import admin
-from .models import Usuarios, Adm_Usuarios, acesso_cliente
+from .models import Usuarios, Adm_Usuarios, academia_adm, acesso_cliente
 import datetime
 from django.contrib import auth
 # Create your views here.
 
+def sessao_ativa(request):
+    if request.user.is_authenticated:
+        return True
+    else:
+        return False
+
 def clientes(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+
     cliente = Usuarios.objects.all().order_by('-data_inicio')
     return render (request, 'Cliente/clientes.html', {'usuario': cliente})
     
+def criar_usuario(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
+    if request.method == 'POST':
+    
+        email = request.POST['login_cliente']
+        senha = request.POST['senha_cliente']
+        
+        user = academia_adm.objects.create_user(
+            email = email, 
+            senha = senha
+        )
+
+        user.save()
+
 def login(request):
     if request.method == 'POST':
-        acesso = request.POST['login_cliente']
-        senha = request.POST['senha_cliente']
-        print(acesso,senha)
+        email = request.POST['login_acesso']
+        senha = request.POST['senha_acesso']
+        
+        usuario = auth.authenticate(request, email=email, password=senha)
 
-        # if Usuario.objects.filter(username=usuario).exists():
-        user = auth.authenticate(request, email=acesso, password=senha)
-        print(user)
-
-        if user is not None:
-            auth.login(request, user)
+        if usuario is not None:
+            auth.login(request, usuario)
             return redirect('menu')
 
     return render (request, 'Cliente/login.html')
 
 def menu(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+
     return render (request, 'Cliente/menu.html')
 
 def cadastro(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     return render(request, 'Cliente/cadastro.html')
 
 def acesso(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     cliente = acesso_cliente.objects.all().order_by('-data_acesso')
     return render (request, 'Cliente/acesso.html', {'usuario': cliente})
 
 def novo_acesso(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     return render(request, 'Cliente/novo_acesso.html')
 
 def cpf_validate(numbers):
@@ -66,6 +99,9 @@ def cpf_validate(numbers):
     return True
 
 def realizar_cadastro(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     if request.method == 'POST':
         nome = request.POST['nome']
         tel = request.POST['telefone']
@@ -105,6 +141,9 @@ def realizar_cadastro(request):
         return render(request, 'Cliente/cadastro.html')
 
 def realizar_acesso(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     if request.method == 'POST':
         nome_acesso = ''
         cpf_acesso = request.POST['cpf_acesso']
@@ -136,6 +175,9 @@ def realizar_acesso(request):
         return render(request, 'Cliente/novo_acesso.html')
 
 def deletar_cliente(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     if request.method == 'POST':
         id_deletar = request.POST['id_deletar']
         delete = Adm_Usuarios.deletar_cliente(
