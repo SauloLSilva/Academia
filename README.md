@@ -14,7 +14,7 @@ sudo pip3 install -r requirements_linux.txt
 python3 manage.py collectstatic
 
 # para abrir banco
-sudo apt install sqlite
+sudo apt install sqlite3
 
 # para visualizar banco de forma externa
 
