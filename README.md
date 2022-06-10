@@ -23,4 +23,5 @@ utlilizar DB Browser: sudo apt-get install sqlitebrowser
 # para rodar projeto
 
 python3 manage.py migrate
+python3 manage.py createsuperuser (ou não irá conseguir acessar interface)
 python3 manage.py runserver
