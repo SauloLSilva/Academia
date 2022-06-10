@@ -2,14 +2,29 @@ from django.shortcuts import render, redirect
 from .models import Adm_Planos, Planos
 # Create your views here.
 
+def sessao_ativa(request):
+    if request.user.is_authenticated:
+        return True
+    else:
+        return False
+
 def planos(request):
-    plano = Planos.objects.all()
+    if not sessao_ativa(request):
+        return redirect('login')
+    
+    plano = Planos.objects.all().order_by('nome_plano')
     return render (request, 'Plano/planos.html', {'plano': plano})
 
 def novo_plano(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     return render(request, 'Plano/novo_plano.html')
 
 def criar_plano(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     if request.method == 'POST':
         nome_plano = request.POST['nome_do_plano']
         quantidade_aulas = request.POST['qtd_aulas']
@@ -25,12 +40,13 @@ def criar_plano(request):
         return render(request, 'Cliente/planos.html')
     
 def deletar_plano(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     if request.method == 'POST':
         id_deletar = request.POST['id_delete_plano']
         delete = Adm_Planos.deletar_plano(
             id_usuario = id_deletar
         )
-        # print(id_usuario)
-        # usuario = Usuarios.objects.get(pk=id_usuario)
                 
         return redirect('planos')
