@@ -1,0 +1,38 @@
+{% extends 'Cliente/base.html' %}
+{% load static %}
+
+{% block estilo %}
+<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
+{% endblock estilo %}
+
+{% block header %}
+  <div class="title">
+    <img id=alunos src="{% static 'icons/prancheta.png' %}">
+    <p>Novo Usuário</p>
+  </div>
+{% endblock header %}
+{% block conteudo %}
+    <nav class="cadastro-painel">
+      <div class="cadastro-header-painel">
+        <div class="cadastro-buttons">
+          <div class="area-cadastro">
+            <form id="form-cadastro" role="form" method="post" action="{% url 'criar_usuario' %} " enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="input-container">
+                <label >Email*: </label>
+                <input type="text" class="form-control" placeholder="email" id="email_cadastro" name="email_cadastro">
+              </div>
+              <div class="input-container">
+                <label >Senha*: </label>
+                <input type="text" class="form-control" placeholder="senha" id="senha_cadastro" name="senha_cadastro">
+              </div>
+              <div id="buttons-div">
+                <input type="submit" value="Cadastrar" onclick="javascrip:alert('Cadastro realizado com sucesso')">
+                <input type="button" value="Cancelar" onclick="javascript:history.back()">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+{% endblock conteudo %}

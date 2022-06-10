@@ -54,6 +54,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'AcademiaDjango.urls'
 
+AUTH_USER_MODEL = 'Cliente.academia_adm'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

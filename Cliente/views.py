@@ -1,32 +1,95 @@
 from csv import reader
 from dataclasses import dataclass
-import time
 from urllib.request import Request
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import admin
-from .models import Usuarios, Adm_Usuarios, acesso_cliente
+from .models import Usuarios, Adm_Usuarios, academia_adm, acesso_cliente
 import datetime
+from django.contrib import auth
 # Create your views here.
 
-def clientes(request):
-    cliente = Usuarios.objects.all().order_by('-data_inicio')
-    return render (request, 'Cliente/clientes.html', {'usuario': cliente})
+def sessao_ativa(request):
+    if request.user.is_authenticated:
+        return True
+    else:
+        return False
+
+def novo_usuario(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+
+    print(request.user.is_superuser)
+
+    if request.user.is_superuser is not True:
+        raise PermissionError('Usuário atual não possui permissão para criar novos usuários')
     
+    return render(request, 'Cliente/novo_usuario.html')
+
+def criar_usuario(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+
+    if request.method == 'POST':
+    
+        email = request.POST['email_cadastro']
+        password = request.POST['senha_cadastro']
+        
+        user = academia_adm.objects.create_user(
+            email = email, 
+            password = password
+        )
+
+        user.save()
+        return redirect('menu')
+
 def login(request):
+    if request.method == 'POST':
+        email = request.POST['login_acesso']
+        senha = request.POST['senha_acesso']
+        
+        usuario = auth.authenticate(request, email=email, password=senha)
+
+        if usuario is not None:
+            auth.login(request, usuario)
+            return redirect('menu')
+
     return render (request, 'Cliente/login.html')
 
+def logout(request):
+    auth.logout(request)
+    return redirect('login')
+
 def menu(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+
     return render (request, 'Cliente/menu.html')
 
+def clientes(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+
+    cliente = Usuarios.objects.all().order_by('-data_inicio')
+    return render (request, 'Cliente/clientes.html', {'usuario': cliente})
+
 def cadastro(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     return render(request, 'Cliente/cadastro.html')
 
 def acesso(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     cliente = acesso_cliente.objects.all().order_by('-data_acesso')
     return render (request, 'Cliente/acesso.html', {'usuario': cliente})
 
 def novo_acesso(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     return render(request, 'Cliente/novo_acesso.html')
 
 def cpf_validate(numbers):
@@ -43,7 +106,7 @@ def cpf_validate(numbers):
     if cpf == cpf[::-1]:
         return False
 
-    #  Valida os dois dígitos verificadores
+        #  Valida os dois dígitos verificadores
     for i in range(9, 11):
         value = sum((cpf[num] * ((i+1) - num) for num in range(0, i)))
         digit = ((value * 10) % 11) % 10
@@ -52,12 +115,20 @@ def cpf_validate(numbers):
     return True
 
 def realizar_cadastro(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     if request.method == 'POST':
         nome = request.POST['nome']
         tel = request.POST['telefone']
         cpf_cliente = request.POST['cpf']
         valida_cpf = cpf_validate(cpf_cliente)
-        cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+        
+        try:
+            cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+        except Exception as err:
+            raise ValueError('CPF Inválido ou inexistente')
+
         data = request.POST['data_final']
         plano = request.POST['plano']
         quantidade_aulas = request.POST['quantidade_aulas']
@@ -80,11 +151,15 @@ def realizar_cadastro(request):
                 acesso_anterior = acesso_anterior
             )
             cadastro.save()
-            return redirect('cadastro')
+            return redirect('menu')
+
     else:
         return render(request, 'Cliente/cadastro.html')
 
 def realizar_acesso(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     if request.method == 'POST':
         nome_acesso = ''
         cpf_acesso = request.POST['cpf_acesso']
@@ -111,17 +186,18 @@ def realizar_acesso(request):
                 acesso_anterior = data_acesso
             )
 
-            return redirect('novo_acesso')
+            return redirect('menu')
     else:
         return render(request, 'Cliente/novo_acesso.html')
 
 def deletar_cliente(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
     if request.method == 'POST':
         id_deletar = request.POST['id_deletar']
         delete = Adm_Usuarios.deletar_cliente(
             id_usuario = id_deletar
         )
-        # print(id_usuario)
-        # usuario = Usuarios.objects.get(pk=id_usuario)
                 
         return redirect('clientes')

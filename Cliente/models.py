@@ -29,8 +29,6 @@ class Adm_Usuarios(BaseUserManager):
         return cliente
 
     def criar_acesso(self, nome_acesso, cpf_acesso, data_acesso, status_acesso):
-        # if not nome_acesso:
-        #     raise ValueError('Usuario precisa ter um nome completo')
         if not cpf_acesso:
             raise ValueError('Necessário CPF')
 
@@ -118,6 +116,41 @@ class Adm_Usuarios(BaseUserManager):
         else:
             raise ValueError('CPF não encontrado')
 
+    def create_user(self, email, password=None):
+        if not email:
+            raise ValueError("Usuario deve ter um endereço de email")
+        if not password:
+            raise ValueError("Usuario deve ter uma senha")
+
+        try:
+            usuario = self.model(
+                email=self.normalize_email(email)
+            )
+
+            usuario.set_password(password)
+            usuario.save(using=self._db)
+
+            return usuario
+        except Exception as err:
+            raise ValueError("Email já cadastrado, inválido ou tentativa de cadastro sem senha")
+
+    def create_superuser(self, email, password=None):
+        if not email:
+            raise ValueError("Usuario deve ter um endereço de email")
+
+        usuario = self.model(
+            email=self.normalize_email(email),
+            is_staff = True,
+            is_superuser = True,
+            is_admin = True
+
+        )
+
+        usuario.set_password(password)
+        usuario.save(using=self._db)
+
+        return usuario
+
 
 class Usuarios(AbstractBaseUser):
     nome_completo = models.CharField(max_length=255)
@@ -155,3 +188,29 @@ class acesso_cliente(AbstractBaseUser):
     
     def __str__(self):
         return self.nome_acesso
+
+class academia_adm(AbstractBaseUser):
+    email = models.EmailField(verbose_name='email', max_length=60, unique=True)
+    # username = models.CharField(max_length=30, unique=True)
+    
+    data_criado = models.CharField(max_length=30)
+    data_editado = models.CharField(max_length=30)
+    is_admin = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    # has_module_perms = models.BooleanField(default=False)
+
+
+    USERNAME_FIELD = 'email'
+
+    objects = Adm_Usuarios()
+
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        return self.is_superuser
+
+    def has_module_perms(self, app_label):
+        return self.is_superuser
