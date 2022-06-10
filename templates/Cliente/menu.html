@@ -33,16 +33,16 @@
                   <img id=alunos src="{% static 'icons/sifrao.png' %}">
                 </button>
             </form>
-            <td>novo plano</td>
+            <td> novo  plano </td>
           </div>
           <div>
-            <form role="form" action="{% url 'novo_acesso' %}" method="POST" enctype="multipart/form-data">
+            <form role="form" action="{% url 'planos' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/cracha.png' %}">
+                  <img style="width: 90%;" id=alunos src="{% static 'icons/peso.png' %}" >
                 </button>
             </form>
-            <td>criar acesso</td>
+            <td>planos</td>
           </div>
         </div>
         <div class="home-buttons">
@@ -56,13 +56,13 @@
             <td>alunos</td>
           </div>
           <div>
-            <form role="form" action="{% url 'planos' %}" method="POST" enctype="multipart/form-data">
+            <form role="form" action="{% url 'novo_acesso' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img style="width: 90%;" id=alunos src="{% static 'icons/peso.png' %}" >
+                  <img id=alunos src="{% static 'icons/cracha.png' %}">
                 </button>
             </form>
-            <td>planos</td>
+            <td>criar acesso</td>
           </div>
           <div>
             <form role="form" action="{% url 'acesso' %}" method="POST" enctype="multipart/form-data">
