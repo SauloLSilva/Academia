@@ -26,5 +26,6 @@ urlpatterns = [
     path('acesso', acesso, name='acesso'),
     path('novo_acesso', novo_acesso, name='novo_acesso'),
     path('realizar_cadastro', realizar_cadastro, name='realizar_cadastro'),
-    path('realizar_acesso', realizar_acesso, name='realizar_acesso')
+    path('realizar_acesso', realizar_acesso, name='realizar_acesso'),
+    path('deletar_cliente', deletar_cliente, name='deletar_cliente')
 ]

@@ -19,11 +19,11 @@
       <form id="form-cadastro" role="form" method="post" action="{% url 'criar_plano' %} " enctype="multipart/form-data">
         {% csrf_token %}
         <div class="input-container">
-          <label >Nome do plano*: </label>
+          <label >Plano*: </label>
           <input type="text" class="form-control" placeholder="Nome do plano" id="nome_do_plano" name="nome_do_plano">
         </div>
         <div class="input-container">
-          <label for="telefone">Quantidade de aulas*: </label>
+          <label for="telefone">Aulas*: </label>
           <input type="text" class="form-control" placeholder="Quantidade de aulas" id="qtd_aulas" name="qtd_aulas">
         </div>
         <div class="input-container">

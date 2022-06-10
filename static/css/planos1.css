@@ -44,7 +44,7 @@
 }
 .planos-lista {
   width: 100%;
-  background-color: var(--background);
+  /* background-color: var(--background);/ */
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -88,7 +88,8 @@ td {
   text-align: center;
 }
 .area-planos a {
-  color: var(--text-title);
+  /* color: var(--text-title); */
+  color: var(--shape);
 }
 .area-planos tr:hover a {
   color: var(--shape);
@@ -109,9 +110,26 @@ td {
   /* padding: 0.8rem 1.8rem; */
   border-radius: 10px;
   margin-top: 30px;
-  color: var(--background);
-  background-color: var(--background_container);
+  color: var(--background_container);
+  background-color: var(--background);
 }
 #add-link {
   text-decoration: none;
+}
+.delete-td {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img#planos-delete {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.buttons-div {
+  margin-top: 2rem;
+  margin-bottom: -3rem;
 }

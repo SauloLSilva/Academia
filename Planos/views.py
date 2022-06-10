@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Planos
+from .models import Adm_Planos, Planos
 # Create your views here.
 
 def planos(request):
@@ -23,3 +23,14 @@ def criar_plano(request):
         return redirect('novo_plano')
     else:
         return render(request, 'Cliente/planos.html')
+    
+def deletar_plano(request):
+    if request.method == 'POST':
+        id_deletar = request.POST['id_delete_plano']
+        delete = Adm_Planos.deletar_plano(
+            id_usuario = id_deletar
+        )
+        # print(id_usuario)
+        # usuario = Usuarios.objects.get(pk=id_usuario)
+                
+        return redirect('planos')

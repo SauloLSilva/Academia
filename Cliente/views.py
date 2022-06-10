@@ -1,6 +1,7 @@
 from csv import reader
 from dataclasses import dataclass
 import time
+from urllib.request import Request
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import admin
@@ -113,3 +114,14 @@ def realizar_acesso(request):
             return redirect('novo_acesso')
     else:
         return render(request, 'Cliente/novo_acesso.html')
+
+def deletar_cliente(request):
+    if request.method == 'POST':
+        id_deletar = request.POST['id_deletar']
+        delete = Adm_Usuarios.deletar_cliente(
+            id_usuario = id_deletar
+        )
+        # print(id_usuario)
+        # usuario = Usuarios.objects.get(pk=id_usuario)
+                
+        return redirect('clientes')

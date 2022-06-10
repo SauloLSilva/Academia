@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+import sqlite3
 
 # Create your models here.
 class Adm_Planos(BaseUserManager):
@@ -20,6 +21,13 @@ class Adm_Planos(BaseUserManager):
         plano.save(using=self._db)
         
         return plano
+
+    def deletar_plano(id_usuario):
+        conectar = sqlite3.connect('academiaDjango.db')
+        cursor = conectar.cursor()
+        query = cursor.execute('''DELETE FROM Planos_planos Where id = {}'''.format(id_usuario))
+        conectar.commit()
+        conectar.close()
 
 class Planos(models.Model):
     nome_plano = models.CharField(max_length=255)

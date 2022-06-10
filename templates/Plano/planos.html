@@ -20,6 +20,7 @@
               <th>Curso</th>
               <th>Aulas</th>
               <th>Valor</th>
+              <th>Excluir</th>
           </thead>
             <tbody>
               {%for plano in plano %}
@@ -28,12 +29,20 @@
                 <td><a id="add-link" href="/plano/{{Planos.nome_plano}}">{{plano.nome_plano}}</a></td>
                 <td><a id="add-link" href="/plano/{{Planos.quantidade_aulas}}">{{plano.quantidade_aulas}}</a></td>
                 <td><a id="add-link" href="/plano/{{Planos.valor}}">{{plano.valor}}</a></td>
+                <td>
+                  <form role="form" action="{% url 'deletar_plano' %}" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+                      <button class="add-link delete-td" type="submit" onclick="window.alert('Plano deletado com sucesso!')" id="id_delete_plano" name="id_delete_plano" value="{{plano.id}}">
+                        <img id="planos-delete" src="{% static 'icons/delete.png' %}">
+                      </button>
+                  </form>
+                </td>
               </tr>
               {% endfor %}
             </div>
             </tbody>
           </table>
-        </div>
-        <button name="voltar" onclick="javascript:history.back()">Voltar</button>
+        </div >
+        <button class="buttons-div" name="voltar" onclick="javascript:history.back()">Voltar</button>
       </div>
 {% endblock conteudo%}
