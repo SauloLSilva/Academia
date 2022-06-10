@@ -41,6 +41,7 @@ def criar_usuario(request):
         )
 
         user.save()
+        return redirect('menu')
 
 def login(request):
     if request.method == 'POST':
@@ -150,7 +151,7 @@ def realizar_cadastro(request):
                 acesso_anterior = acesso_anterior
             )
             cadastro.save()
-            return redirect('cadastro')
+            return redirect('menu')
 
     else:
         return render(request, 'Cliente/cadastro.html')
@@ -185,7 +186,7 @@ def realizar_acesso(request):
                 acesso_anterior = data_acesso
             )
 
-            return redirect('novo_acesso')
+            return redirect('menu')
     else:
         return render(request, 'Cliente/novo_acesso.html')
 

@@ -35,7 +35,7 @@ def criar_plano(request):
             valor = valor,
         )
         cadastro.save()
-        return redirect('novo_plano')
+        return redirect('menu')
     else:
         return render(request, 'Cliente/planos.html')
     
