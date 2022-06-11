@@ -24,8 +24,19 @@
                   <img id=alunos src="{% static 'icons/prancheta.png' %}">
                 </button>
             </form>
-            <td class="label">matrícula</td>
+            <td class="label">Matrícula</td>
           </div>
+          {% if user.is_superuser %}
+          <div>
+            <form role="form" action="{% url 'novo_usuario' %}" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+                <button>
+                  <img id=alunos src="{% static 'icons/prancheta.png' %}">
+                </button>
+            </form>
+            <td class="label">Novo Usuário</td>
+          </div>
+          {% endif %}
           <div>
             <form role="form" action="{% url 'novo_plano' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
@@ -33,7 +44,7 @@
                   <img id=alunos src="{% static 'icons/sifrao.png' %}">
                 </button>
             </form>
-            <td> novo  plano </td>
+            <td> Novo plano </td>
           </div>
           <div>
             <form role="form" action="{% url 'planos' %}" method="POST" enctype="multipart/form-data">
@@ -42,7 +53,7 @@
                   <img style="width: 90%;" id=alunos src="{% static 'icons/peso.png' %}" >
                 </button>
             </form>
-            <td>planos</td>
+            <td>Planos</td>
           </div>
         </div>
         <div class="home-buttons">
@@ -53,7 +64,7 @@
                   <img id=alunos src="{% static 'icons/pessoas.png' %}">
                 </button>
             </form>
-            <td>alunos</td>
+            <td>Alunos</td>
           </div>
           <div>
             <form role="form" action="{% url 'novo_acesso' %}" method="POST" enctype="multipart/form-data">
@@ -62,7 +73,7 @@
                   <img id=alunos src="{% static 'icons/cracha.png' %}">
                 </button>
             </form>
-            <td>criar acesso</td>
+            <td>Criar acesso</td>
           </div>
           <div>
             <form role="form" action="{% url 'acesso' %}" method="POST" enctype="multipart/form-data">
@@ -71,7 +82,7 @@
                   <img id=alunos src="{% static 'icons/digital.png' %}">
                 </button>
             </form>
-            <td>acesso</td>
+            <td>Acesso</td>
           </div>
         </div>
       </div>
