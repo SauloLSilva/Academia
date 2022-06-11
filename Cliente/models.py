@@ -116,14 +116,17 @@ class Adm_Usuarios(BaseUserManager):
         else:
             raise ValueError('CPF não encontrado')
 
-    def create_user(self, email, password=None):
+    def create_user(self, username, email, password=None):
         if not email:
             raise ValueError("Usuario deve ter um endereço de email")
         if not password:
             raise ValueError("Usuario deve ter uma senha")
+        if not username:
+            raise ValueError("Usuario deve ter um username único")
 
         try:
             usuario = self.model(
+                username = username,
                 email=self.normalize_email(email)
             )
 
@@ -134,11 +137,16 @@ class Adm_Usuarios(BaseUserManager):
         except Exception as err:
             raise ValueError("Email já cadastrado, inválido ou tentativa de cadastro sem senha")
 
-    def create_superuser(self, email, password=None):
+    def create_superuser(self,username ,email, password=None):
         if not email:
             raise ValueError("Usuario deve ter um endereço de email")
+        if not password:
+            raise ValueError("Usuario deve ter uma senha")
+        if not username:
+            raise ValueError("Usuario deve ter um username único")
 
         usuario = self.model(
+            username = username,
             email=self.normalize_email(email),
             is_staff = True,
             is_superuser = True,
@@ -191,7 +199,7 @@ class acesso_cliente(AbstractBaseUser):
 
 class academia_adm(AbstractBaseUser):
     email = models.EmailField(verbose_name='email', max_length=60, unique=True)
-    # username = models.CharField(max_length=30, unique=True)
+    username = models.CharField(max_length=30, unique=True)
     
     data_criado = models.CharField(max_length=30)
     data_editado = models.CharField(max_length=30)
@@ -202,6 +210,7 @@ class academia_adm(AbstractBaseUser):
     # has_module_perms = models.BooleanField(default=False)
 
 
+    REQUIRED_FIELDS = ['username']
     USERNAME_FIELD = 'email'
 
     objects = Adm_Usuarios()
