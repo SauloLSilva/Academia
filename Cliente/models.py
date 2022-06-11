@@ -116,7 +116,7 @@ class Adm_Usuarios(BaseUserManager):
         else:
             raise ValueError('CPF não encontrado')
 
-    def create_user(self, username, email, password=None):
+    def create_user(self, username, email, is_admin, is_superuser, is_staff, password=None):
         if not email:
             raise ValueError("Usuario deve ter um endereço de email")
         if not password:
@@ -127,7 +127,11 @@ class Adm_Usuarios(BaseUserManager):
         try:
             usuario = self.model(
                 username = username,
-                email=self.normalize_email(email)
+                email=self.normalize_email(email),
+                is_admin = is_admin,
+                is_active = True,
+                is_superuser = is_superuser,
+                is_staff = is_staff
             )
 
             usuario.set_password(password)

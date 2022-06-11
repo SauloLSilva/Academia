@@ -19,9 +19,7 @@ def novo_usuario(request):
     if not sessao_ativa(request):
         return redirect('login')
 
-    print(request.user.is_superuser)
-
-    if request.user.is_superuser is not True:
+    if request.user.is_admin is not True:
         raise PermissionError('Usuário atual não possui permissão para criar novos usuários')
     
     return render(request, 'Cliente/novo_usuario.html')
@@ -31,13 +29,28 @@ def criar_usuario(request):
         return redirect('login')
 
     if request.method == 'POST':
-    
+        
+        username = request.POST['usuario_cadastro'] 
         email = request.POST['email_cadastro']
         password = request.POST['senha_cadastro']
-        
-        user = academia_adm.objects.create_user(
+
+        if request.user.is_superuser is True:
+            user = academia_adm.objects.create_user(
+            username = username,
             email = email, 
-            password = password
+            password = password,
+            is_staff = False,
+            is_superuser = False,
+            is_admin = True
+        )
+        elif request.user.is_admin is True:
+            user = academia_adm.objects.create_user(
+            username = username,
+            email = email, 
+            password = password,
+            is_staff = False,
+            is_superuser = False,
+            is_admin = False
         )
 
         user.save()
