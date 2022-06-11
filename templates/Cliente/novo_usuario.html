@@ -19,6 +19,10 @@
             <form id="form-cadastro" role="form" method="post" action="{% url 'criar_usuario' %} " enctype="multipart/form-data">
               {% csrf_token %}
               <div class="input-container">
+                <label >Username*: </label>
+                <input type="text" class="form-control" placeholder="Nome do Usuario" id="usuario_cadastro" name="usuario_cadastro">
+              </div>
+              <div class="input-container">
                 <label >Email*: </label>
                 <input type="text" class="form-control" placeholder="email" id="email_cadastro" name="email_cadastro">
               </div>
@@ -28,7 +32,7 @@
               </div>
               <div id="buttons-div">
                 <input type="submit" value="Cadastrar" onclick="javascrip:alert('Cadastro realizado com sucesso')">
-                <input type="button" value="Cancelar" onclick="javascript:history.back()">
+                <input type="button" value="Cancelar" onclick="location.href='menu';">
               </div>
             </form>
           </div>
