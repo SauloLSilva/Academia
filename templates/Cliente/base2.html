@@ -16,7 +16,7 @@
   <div id="container-clientes">
     <div class="switch__container">
       <input id="switch-shadow" class="switch switch--shadow" type="checkbox"/>
-      <label for="switch-shadow"></label>
+      <label title="Muda tema do sistema, podendo ser tema claro ou tema escuro" for="switch-shadow"></label>
       <!-- <form role="form" action="{% url 'novo_usuario' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
           <button>
@@ -31,7 +31,7 @@
     {% block conteudo %}
     {% endblock conteudo %}
           <div class="logout">
-        <form role="form" action="{% url 'logout' %}" method="POST" enctype="multipart/form-data">
+        <form role="form" action="{% url 'logout' %}" method="POST" enctype="multipart/form-data" title="Encerra sessão e retorna a tela de login">
           {% csrf_token %}
             <button>
               <img id=alunos src="{% static 'icons/logout.png' %}">
