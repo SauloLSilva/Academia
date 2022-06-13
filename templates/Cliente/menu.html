@@ -21,7 +21,7 @@
             <form role="form" action="{% url 'cadastro' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/prancheta.png' %}">
+                  <img id=alunos src="{% static 'icons/prancheta.png' %}" title="Abre pagina para matrícula de novos alunos">
                 </button>
             </form>
             <td class="label">Matrícula</td>
@@ -31,7 +31,7 @@
             <form role="form" action="{% url 'novo_usuario' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/prancheta.png' %}">
+                  <img id=alunos src="{% static 'icons/prancheta.png' %}" title="Cadastro de novos usuários do sistema">
                 </button>
             </form>
             <td class="label">Novo Usuário</td>
@@ -41,13 +41,13 @@
             <form role="form" action="{% url 'novo_plano' %}" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
                 <button>
-                  <img id=alunos src="{% static 'icons/sifrao.png' %}">
+                  <img id=alunos src="{% static 'icons/sifrao.png' %}" title="Criação de novo plano da academia">
                 </button>
             </form>
             <td> Novo plano </td>
           </div>
           <div>
-            <form role="form" action="{% url 'planos' %}" method="POST" enctype="multipart/form-data">
+            <form role="form" action="{% url 'planos' %}" method="POST" enctype="multipart/form-data" title="Visualizador de todos os planos da academia cadastrados no sistema">
               {% csrf_token %}
                 <button>
                   <img style="width: 90%;" id=alunos src="{% static 'icons/peso.png' %}" >
@@ -58,7 +58,7 @@
         </div>
         <div class="home-buttons">
           <div>
-            <form role="form" action="{% url 'clientes' %}" method="POST" enctype="multipart/form-data">
+            <form role="form" action="{% url 'clientes' %}" method="POST" enctype="multipart/form-data" title="Visualizador de clientes cadastrados na academia">
               {% csrf_token %}
                 <button>
                   <img id=alunos src="{% static 'icons/pessoas.png' %}">
@@ -67,7 +67,7 @@
             <td>Alunos</td>
           </div>
           <div>
-            <form role="form" action="{% url 'novo_acesso' %}" method="POST" enctype="multipart/form-data">
+            <form role="form" action="{% url 'novo_acesso' %}" method="POST" enctype="multipart/form-data" title="Registrar acesso a academia, necessário CPF">
               {% csrf_token %}
                 <button>
                   <img id=alunos src="{% static 'icons/cracha.png' %}">
@@ -76,7 +76,7 @@
             <td>Criar acesso</td>
           </div>
           <div>
-            <form role="form" action="{% url 'acesso' %}" method="POST" enctype="multipart/form-data">
+            <form role="form" action="{% url 'acesso' %}" method="POST" enctype="multipart/form-data" title="Visualizador de últimos acessos a academia registrados">
               {% csrf_token %}
                 <button>
                   <img id=alunos src="{% static 'icons/digital.png' %}">
