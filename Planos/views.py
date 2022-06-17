@@ -27,8 +27,13 @@ def criar_plano(request):
     
     if request.method == 'POST':
         nome_plano = request.POST['nome_do_plano']
-        quantidade_aulas = request.POST['qtd_aulas']
-        valor = request.POST['Valor']
+
+        try:
+            quantidade_aulas = request.POST['qtd_aulas']
+            valor = int(request.POST['Valor'])
+        except Exception as err:
+            raise ValueError('Valor ou quantidade de aulas inválido')
+
         cadastro = Planos.objects.criar_plano(
             nome_plano = nome_plano,
             quantidade_aulas = quantidade_aulas,
@@ -45,8 +50,7 @@ def deletar_plano(request):
     
     if request.method == 'POST':
         id_deletar = request.POST['id_delete_plano']
-        delete = Adm_Planos.deletar_plano(
-            id_usuario = id_deletar
-        )
+        usuario = Planos.objects.get(pk=id_deletar)
+        usuario.delete()
                 
         return redirect('planos')

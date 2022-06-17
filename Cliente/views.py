@@ -136,7 +136,7 @@ def realizar_cadastro(request):
         tel = request.POST['telefone']
         cpf_cliente = request.POST['cpf']
         valida_cpf = cpf_validate(cpf_cliente)
-        
+
         try:
             cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
         except Exception as err:
@@ -144,7 +144,11 @@ def realizar_cadastro(request):
 
         data = request.POST['data_final']
         plano = request.POST['plano']
-        quantidade_aulas = request.POST['quantidade_aulas']
+        try:
+            quantidade_aulas = int(request.POST['quantidade_aulas'])
+        except Exception as err:
+            raise ValueError('Quantidade de aulas inválida')
+            
         acesso_anterior = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
         try:
             cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
@@ -192,6 +196,7 @@ def realizar_acesso(request):
                 data_acesso = data_acesso,
                 status_acesso = status_acesso
             )
+            print(cadastro)
             cadastro.save()
 
             contagem = acesso_cliente.objects.contagem_acesso(
@@ -209,8 +214,7 @@ def deletar_cliente(request):
     
     if request.method == 'POST':
         id_deletar = request.POST['id_deletar']
-        delete = Adm_Usuarios.deletar_cliente(
-            id_usuario = id_deletar
-        )
+        usuario = Usuarios.objects.get(pk=id_deletar)
+        usuario.delete()
                 
         return redirect('clientes')
