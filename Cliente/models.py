@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 import sqlite3
-import datetime
+from django.db import connection
+
 # Create your models here.
 
 class Adm_Usuarios(BaseUserManager):
@@ -32,14 +33,14 @@ class Adm_Usuarios(BaseUserManager):
         if not cpf_acesso:
             raise ValueError('Necessário CPF')
 
-        conectar = sqlite3.connect('academiaDjango.db')
-        cursor = conectar.cursor()
-        query = cursor.execute('''select * from Cliente_usuarios 
-        where cpf == {}'''.format(cpf_acesso))
+        cursor = connection.cursor()
+        query = cursor.execute("""select * from Cliente_usuarios 
+        where cpf = "{}"; """.format(cpf_acesso))
 
         try:
-            retorno = (query.fetchone())
-            aluno = retorno[3]
+            retorno = list(str(cursor.fetchall()).split(','))
+            aluno = (retorno[3][2:-1])
+            print(aluno)
             qtd_aulas = int(retorno[12])
 
             if qtd_aulas !=0:
@@ -64,50 +65,37 @@ class Adm_Usuarios(BaseUserManager):
         
                 return cliente
         except Exception as err:
-            raise ValueError('CPF não encontrado')
-
-    def deletar_cliente(id_usuario):
-        conectar = sqlite3.connect('academiaDjango.db')
-        cursor = conectar.cursor()
-        query = cursor.execute('''DELETE FROM Cliente_usuarios Where id = {}'''.format(id_usuario))
-        conectar.commit()
-        conectar.close()
+            print(err)
+            # raise ValueError('CPF não encontrado')
 
     
     def contagem_acesso(self, cpf, acesso_anterior):
-        conectar = sqlite3.connect('academiaDjango.db')
-        cursor = conectar.cursor()
-        query = cursor.execute('''select * from Cliente_usuarios 
-        where cpf == {}'''.format(cpf))
+        cursor = connection.cursor()
+        query = cursor.execute("""select * from Cliente_usuarios 
+        where cpf = {};""".format(cpf))
 
-        retorno = (query.fetchone())
+        retorno = list(str(cursor.fetchall()).split(','))
         qtd_restante = int(retorno[12])
         
         if retorno != None and 'None' and qtd_restante >= 2:
-            query = cursor.execute('''update Cliente_usuarios 
+            query = cursor.execute("""update Cliente_usuarios 
             set quantidade_aulas = quantidade_aulas - 1 
-            where cpf == {};'''.format(cpf))
-            conectar.commit()
+            where cpf = {};""".format(cpf))
             # conectar.close()
             
-            query2 = cursor.execute('''update Cliente_usuarios 
+            query2 = cursor.execute("""update Cliente_usuarios 
             set acesso_anterior = '{}' 
-            where cpf == {};'''.format(acesso_anterior,cpf))
-            conectar.commit()
-            conectar.close()
+            where cpf = '{}';""".format(acesso_anterior,cpf))
 
         elif qtd_restante == 1:
-            query = cursor.execute('''update Cliente_usuarios 
+            query = cursor.execute("""update Cliente_usuarios 
             set quantidade_aulas = quantidade_aulas - 1 
-            where cpf == {};'''.format(cpf))
-            conectar.commit()
+            where cpf = '{}';""".format(cpf))
             # conectar.close()
             
-            query2 = cursor.execute('''update Cliente_usuarios 
+            query2 = cursor.execute("""update Cliente_usuarios 
             set acesso_anterior = '{}' 
-            where cpf == {};'''.format(acesso_anterior,cpf))
-            conectar.commit()
-            conectar.close()
+            where cpf = {};""".format(acesso_anterior,cpf))
             raise ValueError('Cliente fez última aula contratada, atualizar plano')
         
         elif qtd_restante == 0:
@@ -171,7 +159,7 @@ class Usuarios(AbstractBaseUser):
     data_inicio = models.CharField(max_length=30)
     data_final = models.CharField(max_length=30)
     plano_escolhido = models.CharField(max_length=50)
-    quantidade_aulas = models.CharField(max_length=3)
+    quantidade_aulas = models.IntegerField(max_length=3)
     acesso_anterior = models.CharField(max_length=30)
 
     
