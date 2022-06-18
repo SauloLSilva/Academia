@@ -17,26 +17,18 @@
     <div class="area-cadastro" style="margin-top: 50px">
       <form id="form-cadastro" role="form" method="post" action="{% url 'realizar_acesso' %} " enctype="multipart/form-data">
         {% csrf_token %}
-        <!-- <div class="input-container">
-          <label >Nome Completo: </label>
-          <input type="text" class="form-control" placeholder="nome" id="nome_acesso" name="nome_acesso">
-        </div> -->
-        <!-- <div class="input-container">
-          <label for="telefone">Telefone: </label>
-          <input type="text" class="form-control" placeholder="telefone" id="telefone" name="telefone">
-        </div> -->
         <div class="input-container">
           <label for="cpf">CPF(Apenas números)*: </label>
           <input type="text" class="form-control" placeholder="CPF" id="cpf_acesso" name="cpf_acesso">
         </div>
-        <!-- <div class="input-container">
-          <label for="data-final">Data final: </label>
-          <input type="text" class="form-control" placeholder="Data final do plano" id="data_final" name="data_final">
-        </div>
         <div class="input-container">
-          <label for="plano">Plano escolhido:</label>
-          <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
-        </div> -->
+          <label for="plano">Plano escolhido*:</label>
+          <select class="input-container" id="plano_acesso" name='plano_acesso'>
+            {%for plano in plano %}
+                  <option id="plano_acesso">{{plano.nome_plano}}</option>
+              {% endfor %}
+          </select>
+        </div>
         <div id="buttons-div" style="margin-top: 80px">
           <input type="submit" title="Registra novo acesso se dados estiverem corretos" value="Adicionar" onclick="javascrip:alert('Acesso computado')">
           <input type="button" title="Retorna ao menu principal" value="Cancelar" onclick="location.href='menu';">
