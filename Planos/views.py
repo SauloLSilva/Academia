@@ -29,7 +29,7 @@ def criar_plano(request):
         nome_plano = request.POST['nome_do_plano']
 
         try:
-            quantidade_aulas = request.POST['qtd_aulas']
+            quantidade_aulas = int(request.POST['qtd_aulas'])
             valor = int(request.POST['Valor'])
         except Exception as err:
             raise ValueError('Valor ou quantidade de aulas inválido')
