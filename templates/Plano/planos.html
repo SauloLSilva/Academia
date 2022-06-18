@@ -26,9 +26,9 @@
               {%for plano in plano %}
               <div>
               <tr>
-                <td><a id="add-link" href="/plano/{{Planos.nome_plano}}">{{plano.nome_plano}}</a></td>
-                <td><a id="add-link" href="/plano/{{Planos.quantidade_aulas}}">{{plano.quantidade_aulas}}</a></td>
-                <td><a id="add-link" href="/plano/{{Planos.valor}}">{{plano.valor}}</a></td>
+                <td><a id="add-link">{{plano.nome_plano}}</a></td>
+                <td><a id="add-link">{{plano.quantidade_aulas}}</a></td>
+                <td><a id="add-link">{{plano.valor}}</a></td>
                 <td>
                   <form role="form" action="{% url 'deletar_plano' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
