@@ -12,6 +12,10 @@
   </div>
 {% endblock header %}
 {% block conteudo %}
+<form method='post' action=''>
+
+</form>
+
     <nav class="cadastro-painel">
       <div class="cadastro-header-painel">
         <div class="cadastro-buttons">
@@ -36,7 +40,11 @@
               </div>
               <div class="input-container">
                 <label for="plano">Plano escolhido*:</label>
-                <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
+                <select class="input-container" id="plano" name='plano'>
+                  {%for plano in plano %}
+                        <option id="plano">{{plano.nome_plano}}</option>
+                    {% endfor %}
+                </select>
               </div>
               <div class="input-container">
                 <label for="plano">Quantidade de aulas*:</label>
