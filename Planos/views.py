@@ -26,7 +26,7 @@ def criar_plano(request):
         return redirect('login')
     
     if request.method == 'POST':
-        nome_plano = request.POST['nome_do_plano']
+        nome_plano = str(request.POST['nome_do_plano']).title()
 
         try:
             quantidade_aulas = int(request.POST['qtd_aulas'])
