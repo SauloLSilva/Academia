@@ -15,27 +15,53 @@ class Adm_Usuarios(BaseUserManager):
         if not quantidade_aulas:
             raise ValueError('Usuário sem quantidade de aulas definida')
 
-        cliente = self.model(
-            nome_completo = nome_completo,
-            telefone = telefone,
-            cpf = cpf,
-            data_inicio = data_inicio,
-            data_final = data_final,
-            plano_escolhido = plano_escolhido,
-            quantidade_aulas = quantidade_aulas,
-            acesso_anterior = acesso_anterior
-        )
-        cliente.save(using=self._db)
-    
-        return cliente
+        try:
+            cursor = connection.cursor()
+            query = cursor.execute("""select * from Cliente_usuarios 
+            where cpf = {} and plano_escolhido = '{}'; """.format(cpf, plano_escolhido))
+            retorno = list(str(cursor.fetchall()).split(','))
+            plano_cadastrado = (retorno[8][2:-1])
 
-    def criar_acesso(self, nome_acesso, cpf_acesso, data_acesso, status_acesso):
+            if plano_escolhido == plano_cadastrado:
+                raise ValueError('Cliente já cadastrado nesse plano')
+            else:
+            
+                cliente = self.model(
+                    nome_completo = nome_completo,
+                    telefone = telefone,
+                    cpf = cpf,
+                    data_inicio = data_inicio,
+                    data_final = data_final,
+                    plano_escolhido = plano_escolhido,
+                    quantidade_aulas = quantidade_aulas,
+                    acesso_anterior = acesso_anterior
+                )
+                cliente.save(using=self._db)
+        
+                return cliente
+        except IndexError:
+
+            cliente = self.model(
+                nome_completo = nome_completo,
+                telefone = telefone,
+                cpf = cpf,
+                data_inicio = data_inicio,
+                data_final = data_final,
+                plano_escolhido = plano_escolhido,
+                quantidade_aulas = quantidade_aulas,
+                acesso_anterior = acesso_anterior
+            )
+            cliente.save(using=self._db)
+    
+            return cliente
+
+    def criar_acesso(self, plano_acesso, nome_acesso, cpf_acesso, data_acesso, status_acesso):
         if not cpf_acesso:
             raise ValueError('Necessário CPF')
 
         cursor = connection.cursor()
-        query = cursor.execute("""select * from Cliente_usuarios 
-        where cpf = "{}"; """.format(cpf_acesso))
+        query = cursor.execute("""select * from Cliente_usuarios
+        where cpf = {} and plano_escolhido = '{}'""".format(cpf_acesso, plano_acesso))
 
         try:
             retorno = list(str(cursor.fetchall()).split(','))
@@ -47,6 +73,7 @@ class Adm_Usuarios(BaseUserManager):
 
                 cliente = self.model(
                     nome_acesso = aluno,
+                    plano_acesso = plano_acesso,
                     cpf_acesso = cpf_acesso,
                     data_acesso = data_acesso,
                     status_acesso = 'Liberado',
@@ -57,6 +84,7 @@ class Adm_Usuarios(BaseUserManager):
             else:
                 cliente = self.model(
                     nome_acesso = aluno,
+                    plano_acesso = plano_acesso,
                     cpf_acesso = cpf_acesso,
                     data_acesso = data_acesso,
                     status_acesso = 'Bloqueado',
@@ -66,10 +94,10 @@ class Adm_Usuarios(BaseUserManager):
                 return cliente
         except Exception as err:
             print(err)
-            # raise ValueError('CPF não encontrado')
+            raise ValueError('CPF não encontrado ou não cadastrado nesse plano')
 
     
-    def contagem_acesso(self, cpf, acesso_anterior):
+    def contagem_acesso(self, cpf, acesso_anterior, plano):
         cursor = connection.cursor()
         query = cursor.execute("""select * from Cliente_usuarios 
         where cpf = {};""".format(cpf))
@@ -80,22 +108,20 @@ class Adm_Usuarios(BaseUserManager):
         if retorno != None and 'None' and qtd_restante >= 2:
             query = cursor.execute("""update Cliente_usuarios 
             set quantidade_aulas = quantidade_aulas - 1 
-            where cpf = {};""".format(cpf))
-            # conectar.close()
+            where cpf = {} and plano_escolhido = '{}';""".format(cpf, plano))
             
             query2 = cursor.execute("""update Cliente_usuarios 
             set acesso_anterior = '{}' 
-            where cpf = '{}';""".format(acesso_anterior,cpf))
+            where cpf = '{}' and plano_escolhido = '{}';""".format(acesso_anterior, cpf, plano))
 
         elif qtd_restante == 1:
             query = cursor.execute("""update Cliente_usuarios 
             set quantidade_aulas = quantidade_aulas - 1 
-            where cpf = '{}';""".format(cpf))
-            # conectar.close()
+            where cpf = '{}' and plano_escolhido = '{}';""".format(cpf, plano))
             
             query2 = cursor.execute("""update Cliente_usuarios 
             set acesso_anterior = '{}' 
-            where cpf = {};""".format(acesso_anterior,cpf))
+            where cpf = {} and plano_escolhido = '{}';""".format(acesso_anterior, cpf, plano))
             raise ValueError('Cliente fez última aula contratada, atualizar plano')
         
         elif qtd_restante == 0:
@@ -178,6 +204,7 @@ class Usuarios(AbstractBaseUser):
 class acesso_cliente(AbstractBaseUser):
     nome_acesso = models.CharField(max_length=255)
     cpf_acesso = models.CharField(max_length=13)
+    plano_acesso = models.CharField(max_length=13)
     data_acesso = models.CharField(max_length=30)
     status_acesso = models.CharField(max_length=13)
 
@@ -199,7 +226,6 @@ class academia_adm(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    # has_module_perms = models.BooleanField(default=False)
 
 
     REQUIRED_FIELDS = ['username']
