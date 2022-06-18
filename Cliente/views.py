@@ -5,6 +5,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import admin
 from .models import Usuarios, Adm_Usuarios, academia_adm, acesso_cliente
+from Planos.models import Planos
 import datetime
 from django.contrib import auth
 # Create your views here.
@@ -89,8 +90,10 @@ def clientes(request):
 def cadastro(request):
     if not sessao_ativa(request):
         return redirect('login')
+
+    plano = Planos.objects.all()
     
-    return render(request, 'Cliente/cadastro.html')
+    return render(request, 'Cliente/cadastro.html', {'plano':plano})
 
 def acesso(request):
     if not sessao_ativa(request):
@@ -106,25 +109,20 @@ def novo_acesso(request):
     return render(request, 'Cliente/novo_acesso.html')
 
 def cpf_validate(numbers):
-    #  Obtém os números do CPF e ignora outros caracteres
     cpf = [int(char) for char in numbers if char.isdigit()]
 
-    #  Verifica se o CPF tem 11 dígitos
     if len(cpf) != 11:
         return False
 
-    #  Verifica se o CPF tem todos os números iguais, ex: 111.111.111-11
-    #  Esses CPFs são considerados inválidos mas passam na validação dos dígitos
-    #  Antigo código para referência: if all(cpf[i] == cpf[i+1] for i in range (0, len(cpf)-1))
     if cpf == cpf[::-1]:
         return False
 
-        #  Valida os dois dígitos verificadores
     for i in range(9, 11):
         value = sum((cpf[num] * ((i+1) - num) for num in range(0, i)))
         digit = ((value * 10) % 11) % 10
         if digit != cpf[i]:
             return False
+            
     return True
 
 def realizar_cadastro(request):
