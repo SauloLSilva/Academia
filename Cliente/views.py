@@ -5,6 +5,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import admin
 from .models import Usuarios, Adm_Usuarios, academia_adm, acesso_cliente
+from Planos.models import Planos
 import datetime
 from django.contrib import auth
 # Create your views here.
@@ -89,8 +90,10 @@ def clientes(request):
 def cadastro(request):
     if not sessao_ativa(request):
         return redirect('login')
+
+    plano = Planos.objects.all()
     
-    return render(request, 'Cliente/cadastro.html')
+    return render(request, 'Cliente/cadastro.html', {'plano':plano})
 
 def acesso(request):
     if not sessao_ativa(request):
@@ -102,29 +105,26 @@ def acesso(request):
 def novo_acesso(request):
     if not sessao_ativa(request):
         return redirect('login')
+
+    plano = Planos.objects.all()
     
-    return render(request, 'Cliente/novo_acesso.html')
+    return render(request, 'Cliente/novo_acesso.html', {'plano':plano})
 
 def cpf_validate(numbers):
-    #  Obtém os números do CPF e ignora outros caracteres
     cpf = [int(char) for char in numbers if char.isdigit()]
 
-    #  Verifica se o CPF tem 11 dígitos
     if len(cpf) != 11:
         return False
 
-    #  Verifica se o CPF tem todos os números iguais, ex: 111.111.111-11
-    #  Esses CPFs são considerados inválidos mas passam na validação dos dígitos
-    #  Antigo código para referência: if all(cpf[i] == cpf[i+1] for i in range (0, len(cpf)-1))
     if cpf == cpf[::-1]:
         return False
 
-        #  Valida os dois dígitos verificadores
     for i in range(9, 11):
         value = sum((cpf[num] * ((i+1) - num) for num in range(0, i)))
         digit = ((value * 10) % 11) % 10
         if digit != cpf[i]:
             return False
+
     return True
 
 def realizar_cadastro(request):
@@ -136,7 +136,7 @@ def realizar_cadastro(request):
         tel = request.POST['telefone']
         cpf_cliente = request.POST['cpf']
         valida_cpf = cpf_validate(cpf_cliente)
-        
+
         try:
             cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
         except Exception as err:
@@ -144,7 +144,11 @@ def realizar_cadastro(request):
 
         data = request.POST['data_final']
         plano = request.POST['plano']
-        quantidade_aulas = request.POST['quantidade_aulas']
+        try:
+            quantidade_aulas = int(request.POST['quantidade_aulas'])
+        except Exception as err:
+            raise ValueError('Quantidade de aulas inválida')
+            
         acesso_anterior = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
         try:
             cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
@@ -176,6 +180,7 @@ def realizar_acesso(request):
     if request.method == 'POST':
         nome_acesso = ''
         cpf_acesso = request.POST['cpf_acesso']
+        plano_acesso = request.POST['plano_acesso']
         valida_cpf = cpf_validate(cpf_acesso)
         data_acesso = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
         status_acesso = ''
@@ -185,17 +190,21 @@ def realizar_acesso(request):
             raise ValueError('CPF Inválido ou inexistente')
         if valida_cpf == False:
             raise ValueError('CPF Inválido ou inexistente')
+        
         else:
             cadastro = acesso_cliente.objects.criar_acesso(
                 nome_acesso = nome_acesso,
                 cpf_acesso = cpf,
+                plano_acesso = plano_acesso,
                 data_acesso = data_acesso,
                 status_acesso = status_acesso
             )
+
             cadastro.save()
 
             contagem = acesso_cliente.objects.contagem_acesso(
                 cpf = cpf,
+                plano = plano_acesso,
                 acesso_anterior = data_acesso
             )
 
@@ -209,8 +218,7 @@ def deletar_cliente(request):
     
     if request.method == 'POST':
         id_deletar = request.POST['id_deletar']
-        delete = Adm_Usuarios.deletar_cliente(
-            id_usuario = id_deletar
-        )
+        usuario = Usuarios.objects.get(pk=id_deletar)
+        usuario.delete()
                 
         return redirect('clientes')

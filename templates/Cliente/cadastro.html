@@ -27,7 +27,7 @@
                 <input type="text" class="form-control" placeholder="telefone" id="telefone" name="telefone">
               </div>
               <div class="input-container">
-                <label for="cpf">CPF*: </label>
+                <label for="cpf">CPF(Apenas números)*: </label>
                 <input type="text" class="form-control" placeholder="CPF" id="cpf" name="cpf">
               </div>
               <div class="input-container">
@@ -36,7 +36,11 @@
               </div>
               <div class="input-container">
                 <label for="plano">Plano escolhido*:</label>
-                <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
+                <select class="input-container" id="plano" name='plano'>
+                  {%for plano in plano %}
+                        <option id="plano">{{plano.nome_plano}}</option>
+                    {% endfor %}
+                </select>
               </div>
               <div class="input-container">
                 <label for="plano">Quantidade de aulas*:</label>

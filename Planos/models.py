@@ -22,17 +22,10 @@ class Adm_Planos(BaseUserManager):
         
         return plano
 
-    def deletar_plano(id_usuario):
-        conectar = sqlite3.connect('academiaDjango.db')
-        cursor = conectar.cursor()
-        query = cursor.execute('''DELETE FROM Planos_planos Where id = {}'''.format(id_usuario))
-        conectar.commit()
-        conectar.close()
-
 class Planos(models.Model):
     nome_plano = models.CharField(max_length=255)
-    quantidade_aulas = models.CharField(max_length=3)
-    valor = models.CharField(max_length=6)
+    quantidade_aulas = models.IntegerField()
+    valor = models.IntegerField()
 
     data_criado = models.DateTimeField(auto_now_add=True)
     data_editado = models.DateTimeField(auto_now_add=True)
