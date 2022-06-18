@@ -105,8 +105,10 @@ def acesso(request):
 def novo_acesso(request):
     if not sessao_ativa(request):
         return redirect('login')
+
+    plano = Planos.objects.all()
     
-    return render(request, 'Cliente/novo_acesso.html')
+    return render(request, 'Cliente/novo_acesso.html', {'plano':plano})
 
 def cpf_validate(numbers):
     cpf = [int(char) for char in numbers if char.isdigit()]
@@ -122,7 +124,7 @@ def cpf_validate(numbers):
         digit = ((value * 10) % 11) % 10
         if digit != cpf[i]:
             return False
-            
+
     return True
 
 def realizar_cadastro(request):
@@ -178,6 +180,7 @@ def realizar_acesso(request):
     if request.method == 'POST':
         nome_acesso = ''
         cpf_acesso = request.POST['cpf_acesso']
+        plano_acesso = request.POST['plano_acesso']
         valida_cpf = cpf_validate(cpf_acesso)
         data_acesso = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
         status_acesso = ''
@@ -187,18 +190,21 @@ def realizar_acesso(request):
             raise ValueError('CPF Inválido ou inexistente')
         if valida_cpf == False:
             raise ValueError('CPF Inválido ou inexistente')
+        
         else:
             cadastro = acesso_cliente.objects.criar_acesso(
                 nome_acesso = nome_acesso,
                 cpf_acesso = cpf,
+                plano_acesso = plano_acesso,
                 data_acesso = data_acesso,
                 status_acesso = status_acesso
             )
-            print(cadastro)
+
             cadastro.save()
 
             contagem = acesso_cliente.objects.contagem_acesso(
                 cpf = cpf,
+                plano = plano_acesso,
                 acesso_anterior = data_acesso
             )
 
