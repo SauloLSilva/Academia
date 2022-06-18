@@ -18,6 +18,7 @@
           <table>
             <thead>
               <th>Nome Completo</th>
+              <th>Plano Acesso</th>
               <th>CPF</th>
               <th>Data Acesso</th>
               <th>Acesso</th>
@@ -26,10 +27,11 @@
               {%for acesso_cliente in usuario %}
               <div>
               <tr>
-                <td><a id="add-link" href="/usuario/{{acesso_cliente.nome_acesso}}">{{acesso_cliente.nome_acesso}}</a></td>
-                <td><a id="add-link" href="/usuario/{{acesso_cliente.cpf_acesso}}">{{acesso_cliente.cpf_acesso}}</a></td>
-                <td><a id="add-link" href="/usuario/{{acesso_cliente.data_acesso}}">{{acesso_cliente.data_acesso}}</a></td>
-                <td><a id="add-link" href="/usuario/{{acesso_cliente.status_acesso}}">{{acesso_cliente.status_acesso}}</a></td>
+                <td><a id="add-link">{{acesso_cliente.nome_acesso}}</a></td>
+                <td><a id="add-link">{{acesso_cliente.plano_acesso}}</a></td>
+                <td><a id="add-link">{{acesso_cliente.cpf_acesso}}</a></td>
+                <td><a id="add-link">{{acesso_cliente.data_acesso}}</a></td>
+                <td><a id="add-link">{{acesso_cliente.status_acesso}}</a></td>
               </tr>
               {% endfor %}
             </div>
