@@ -24,8 +24,8 @@ class Adm_Planos(BaseUserManager):
 
 class Planos(models.Model):
     nome_plano = models.CharField(max_length=255)
-    quantidade_aulas = models.IntegerField(max_length=3)
-    valor = models.IntegerField(max_length=6)
+    quantidade_aulas = models.IntegerField()
+    valor = models.IntegerField()
 
     data_criado = models.DateTimeField(auto_now_add=True)
     data_editado = models.DateTimeField(auto_now_add=True)

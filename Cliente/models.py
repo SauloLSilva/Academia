@@ -159,7 +159,7 @@ class Usuarios(AbstractBaseUser):
     data_inicio = models.CharField(max_length=30)
     data_final = models.CharField(max_length=30)
     plano_escolhido = models.CharField(max_length=50)
-    quantidade_aulas = models.IntegerField(max_length=3)
+    quantidade_aulas = models.IntegerField()
     acesso_anterior = models.CharField(max_length=30)
 
     
