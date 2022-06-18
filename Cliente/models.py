@@ -112,12 +112,12 @@ class Adm_Usuarios(BaseUserManager):
             
             query2 = cursor.execute("""update Cliente_usuarios 
             set acesso_anterior = '{}' 
-            where cpf = '{}' and plano_escolhido = '{}';""".format(acesso_anterior, cpf, plano))
+            where cpf = {} and plano_escolhido = '{}';""".format(acesso_anterior, cpf, plano))
 
         elif qtd_restante == 1:
             query = cursor.execute("""update Cliente_usuarios 
             set quantidade_aulas = quantidade_aulas - 1 
-            where cpf = '{}' and plano_escolhido = '{}';""".format(cpf, plano))
+            where cpf = {} and plano_escolhido = '{}';""".format(cpf, plano))
             
             query2 = cursor.execute("""update Cliente_usuarios 
             set acesso_anterior = '{}' 
