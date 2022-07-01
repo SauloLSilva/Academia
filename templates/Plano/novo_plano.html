@@ -13,6 +13,36 @@
 {% endblock header %}
 {% block conteudo %}
 
+  {% if plano %}
+      <div class="cadastro-header-painel">
+        <div class="cadastro-buttons">
+    <div class="area-cadastro">
+      
+      <form id="form-cadastro" role="form" method="post" action="{% url 'editar_plano' %} " enctype="multipart/form-data">
+        <input type="hidden" id="edito_plano" name="edito_plano" value="{{plano.id}}">
+        {% csrf_token %}
+        <div class="input-container">
+          <label >Plano*: </label>
+          <input type="text" class="form-control" placeholder="Nome do plano" id="plano_editar" name="plano_editar" value="{{plano.nome_plano}}">
+        </div>
+        <div class="input-container">
+          <label for="telefone">Aulas*: </label>
+          <input type="text" class="form-control" placeholder="Quantidade de aulas" id="qtd_plano_editar" name="qtd_plano_editar" value="{{plano.quantidade_aulas}}">
+        </div>
+        <div class="input-container">
+          <label for="cpf">Valor*: </label>
+          <input type="text" class="form-control" placeholder="Valor" id="valor_editar" name="valor_editar" value="{{plano.valor}}">
+        </div>
+        <div id="buttons-div">
+          <input type="submit" title="Edita plano se dados estiverem corretos" value="Editar" onclick="javascrip:alert('Cadastro editado com sucesso')">
+          <input type="button" title="Retorna ao menu principal" value="Cancelar" onclick="location.href='planos';">
+        </div>
+      </form>
+    </div>
+        </div>
+      </div>
+      
+  {% else %}
       <div class="cadastro-header-painel">
         <div class="cadastro-buttons">
     <div class="area-cadastro">
@@ -30,14 +60,6 @@
           <label for="cpf">Valor*: </label>
           <input type="text" class="form-control" placeholder="Valor" id="Valor" name="Valor">
         </div>
-        <!-- <div class="input-container">
-          <label for="data-final">Data final: </label>
-          <input type="text" class="form-control" placeholder="Data final do plano" id="data_final" name="data_final">
-        </div>
-        <div class="input-container">
-          <label for="plano">Plano escolhido:</label>
-          <input type="text" class="form-control" placeholder="plano escolhido" id="plano" name="plano">
-        </div> -->
         <div id="buttons-div">
           <input type="submit" title="Cria novo plano se dados estiverem corretos" value="Cadastrar" onclick="javascrip:alert('Cadastro realizado com sucesso')">
           <input type="button" title="Retorna ao menu principal" value="Cancelar" onclick="location.href='menu';">
@@ -46,5 +68,6 @@
     </div>
         </div>
       </div>
+  {% endif %}
 
 {% endblock conteudo %}

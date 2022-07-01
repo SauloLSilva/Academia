@@ -8,6 +8,7 @@ from .models import Usuarios, Adm_Usuarios, academia_adm, acesso_cliente
 from Planos.models import Planos
 import datetime
 from django.contrib import auth
+from django.db import connection
 # Create your views here.
 
 def sessao_ativa(request):
@@ -91,9 +92,16 @@ def cadastro(request):
     if not sessao_ativa(request):
         return redirect('login')
 
-    plano = Planos.objects.all()
+    try:
+        editar_cliente = request.POST['id_editar_cliente']
+        cliente = Usuarios.objects.get(pk=editar_cliente)
+        plano = Planos.objects.all()
+
+        return render(request,'Cliente/cadastro.html', {'usuario': cliente, 'plano': plano})
+    except Exception as err:
+        plano = Planos.objects.all()
     
-    return render(request, 'Cliente/cadastro.html', {'plano':plano})
+        return render(request, 'Cliente/cadastro.html', {'plano':plano})
 
 def acesso(request):
     if not sessao_ativa(request):
@@ -169,6 +177,71 @@ def realizar_cadastro(request):
             )
             cadastro.save()
             return redirect('menu')
+
+    else:
+        return render(request, 'Cliente/cadastro.html')
+
+def editar_cadastro(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
+    if request.method == 'POST':
+        editar_cliente = request.POST['editar_id']
+        cliente = Usuarios.objects.get(pk=editar_cliente)
+        plano_cadastrado_editar = cliente.plano_escolhido
+        cliente.nome_completo = request.POST['nome_editar']
+        cliente.telefone = request.POST['telefone_editar']
+        cpf_cliente = request.POST['cpf_editar']
+        valida_cpf = cpf_validate(cpf_cliente)
+
+        try:
+            cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+        except Exception as err:
+            raise ValueError('CPF Inválido ou inexistente')
+
+        cliente.data_inicio = request.POST['data_matricula_editar']
+        cliente.data_final = request.POST['data_final_editar']
+        cliente.plano_escolhido = request.POST['plano_editar']
+        try:
+            cliente.quantidade_aulas = int(request.POST['quantidade_aulas_editar'])
+        except Exception as err:
+            raise ValueError('Quantidade de aulas inválida')
+            
+        try:
+            cliente.cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+        except Exception as err:
+            raise ValueError('CPF Inválido ou inexistente')
+        if valida_cpf == False:
+            raise ValueError('CPF Inválido ou inexistente')
+
+        if not cliente.nome_completo:
+            raise ValueError('Usuario precisa ter um nome completo')
+        if not cliente.plano_escolhido:
+            raise ValueError('Usuário não possui plano indicado')
+        if not cliente.quantidade_aulas:
+            raise ValueError('Usuário sem quantidade de aulas definida')
+
+        try:
+            if cliente.plano_escolhido == plano_cadastrado_editar:
+                cliente.save()
+                return redirect('clientes')
+
+            else:
+                cursor = connection.cursor()
+                query = cursor.execute("""select * from Cliente_usuarios 
+                    where cpf = {} and plano_escolhido = '{}'; """.format(cpf, cliente.plano_escolhido))
+                retorno = list(str(cursor.fetchall()).split(','))
+                plano_cadastrado = (retorno[8][2:-1])
+
+                if cliente.plano_escolhido == plano_cadastrado:
+                    raise ValueError('Cliente já cadastrado nesse plano')
+                else:
+
+                    cliente.save()
+                    return redirect('clientes')
+        except IndexError:
+            cliente.save()
+            return redirect('clientes')
 
     else:
         return render(request, 'Cliente/cadastro.html')
