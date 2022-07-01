@@ -25,7 +25,7 @@
               <th>Data Final</th>
               <th>Aulas Restantes</th>
               <th>Último Acesso</th>
-              <th>Excluir</th>
+              <th>Editar/Excluir</th>
             </thead>
             <tbody>
               {%for Usuarios in usuario %}
@@ -40,12 +40,18 @@
                 <td><a class="add-link">{{Usuarios.quantidade_aulas}}</a></td>
                 <td><a class="add-link">{{Usuarios.acesso_anterior}}</a></td>
                 <td>
-                  <form role="form" action="{% url 'deletar_cliente' %}" method="POST" enctype="multipart/form-data">
+                  <form role="form" action="{% url 'cadastro' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
-                      <button class="add-link delete-td" type="submit" onclick="window.alert('Usuario deletado com sucesso!')" id="id_deletar" name="id_deletar" value="{{Usuarios.id}}">
-                        <img id="alunos-delete" src="{% static 'icons/delete.png' %}">
+                      <button class="add-link delete-td" type="submit" id="id_editar_cliente" name="id_editar_cliente" value="{{Usuarios.id}}">
+                        <img id="alunos-delete" src="{% static 'icons/edit.png' %}">
                       </button>
                   </form>
+                  <form role="form" action="{% url 'deletar_cliente' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        <button class="add-link delete-td" type="submit" onclick="window.alert('Usuario deletado com sucesso!')" id="id_deletar" name="id_deletar" value="{{Usuarios.id}}">
+                          <img id="alunos-delete" src="{% static 'icons/delete.png' %}">
+                        </button>
+                    </form>
                 </td>
           </td>
               </tr>
