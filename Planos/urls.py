@@ -23,5 +23,6 @@ urlpatterns = [
     path('planos', planos, name='planos'),
     path('novo_plano', novo_plano, name='novo_plano'),
     path('criar_plano', criar_plano, name='criar_plano'),
+    path('editar_plano', editar_plano, name='editar_plano'),
     path('deletar_plano', deletar_plano, name='deletar_plano')
 ]
