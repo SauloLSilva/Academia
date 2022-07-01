@@ -12,6 +12,56 @@
   </div>
 {% endblock header %}
 {% block conteudo %}
+    {% if usuario %}
+    <nav class="cadastro-painel">
+      <div class="cadastro-header-painel">
+        <div class="cadastro-buttons">
+          <div class="area-cadastro">
+            <form id="form-cadastro" role="form" method="post" action="{% url 'editar_cadastro' %} " enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="hidden" id="editar_id" name="editar_id" value="{{usuario.id}}">
+              <div class="input-container">
+                <label >Nome Completo*: </label>
+                <input type="text" class="form-control" placeholder="nome" id="nome_editar" name="nome_editar" value="{{usuario.nome_completo}}">
+              </div>
+              <div class="input-container">
+                <label for="telefone">Telefone: </label>
+                <input type="text" class="form-control" placeholder="telefone" id="telefone_editar" name="telefone_editar" value="{{usuario.telefone}}">
+              </div>
+              <div class="input-container">
+                <label for="cpf">CPF(Apenas números)*: </label>
+                <input type="text" class="form-control" placeholder="CPF" id="cpf_editar" name="cpf_editar" value="{{usuario.cpf}}">
+              </div>
+              <div class="input-container">
+                <label for="data-final">Data Matrícula: </label>
+                <input type="text" class="form-control" placeholder="Data final do plano" id="data_matricula_editar" name="data_matricula_editar" value="{{usuario.data_inicio}}">
+              </div>
+              <div class="input-container">
+                <label for="data-final">Data final: </label>
+                <input type="text" class="form-control" placeholder="Data final do plano" id="data_final_editar" name="data_final_editar" value="{{usuario.data_final}}">
+              </div>
+              <div class="input-container">
+                <label for="plano">Plano escolhido*:</label>
+                <select class="input-container" id="plano_editar" name='plano_editar'>
+                  {%for plano in plano %}
+                        <option id="plano_editar">{{plano.nome_plano}}</option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="input-container">
+                <label for="plano">Quantidade de aulas*:</label>
+                <input type="text" class="form-control" placeholder="Quantidade de aulas" id="quantidade_aulas_editar" name="quantidade_aulas_editar" value="{{usuario.quantidade_aulas}}">
+              </div>
+              <div id="buttons-div">
+                <input type="submit" value="Editar" title="Cadastra cliente se todos os dados estiverem corretos" onclick="javascrip:alert('Cadastro editado com sucesso')">
+                <input type="button" value="Cancelar" title="Retorna ao menu" onclick="location.href='clientes';">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+    {% else %}
     <nav class="cadastro-painel">
       <div class="cadastro-header-painel">
         <div class="cadastro-buttons">
@@ -55,4 +105,5 @@
         </div>
       </div>
     </nav>
+  {% endif %}
 {% endblock conteudo %}
