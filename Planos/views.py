@@ -18,8 +18,13 @@ def planos(request):
 def novo_plano(request):
     if not sessao_ativa(request):
         return redirect('login')
-    
-    return render(request, 'Plano/novo_plano.html')
+    try:
+        edita_plano = request.POST['plano_editar_id']
+        plano = Planos.objects.get(pk=edita_plano)
+        return render(request, 'Plano/novo_plano.html', {'plano':plano})
+
+    except Exception as err:
+        return render(request, 'Plano/novo_plano.html')
 
 def criar_plano(request):
     if not sessao_ativa(request):
@@ -40,6 +45,37 @@ def criar_plano(request):
             valor = valor,
         )
         cadastro.save()
+        return redirect('menu')
+    else:
+        return render(request, 'Cliente/planos.html')
+
+def editar_plano(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
+    if request.method == 'POST':
+        plano_id = request.POST['edito_plano']
+        plano = Planos.objects.get(pk=plano_id)
+        plano.nome_plano = request.POST['plano_editar']
+        plano.quantidade_aulas = request.POST['qtd_plano_editar']
+        plano.valor = request.POST['valor_editar']
+
+        plano.nome_plano = str(request.POST['plano_editar']).title()
+
+        try:
+            plano.quantidade_aulas = int(request.POST['qtd_plano_editar'])
+            plano.valor = int(request.POST['valor_editar'])
+        except Exception as err:
+            raise ValueError('Valor ou quantidade de aulas inválido')
+
+        if not plano.nome_plano:
+            raise ValueError('Plano precisa ter um nome')
+        if not plano.quantidade_aulas:
+            raise ValueError('Necessário quantidade de aulas')
+        if not plano.valor:
+            raise ValueError('Necessário valor')
+
+        plano.save()
         return redirect('menu')
     else:
         return render(request, 'Cliente/planos.html')
