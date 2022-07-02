@@ -11,6 +11,8 @@ from django.contrib import auth
 from django.db import connection
 # Create your views here.
 
+# ________________________administrativo___________________________
+
 def sessao_ativa(request):
     if request.user.is_authenticated:
         return True
@@ -74,6 +76,8 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+
+# ________________________área cliente___________________________
 
 def menu(request):
     if not sessao_ativa(request):
@@ -145,21 +149,27 @@ def realizar_cadastro(request):
         cpf_cliente = request.POST['cpf']
         valida_cpf = cpf_validate(cpf_cliente)
 
-        try:
-            cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
-        except Exception as err:
-            raise ValueError('CPF Inválido ou inexistente')
+        data_atual = datetime.datetime.now().strftime("%d/%m/%Y")
+        data = str(request.POST['data_final'])
+        if len(data) < 10:
+            raise ValueError('Data final inválida, usar padrão de 01/01/2020')
+        if data < data_atual:
+            raise ValueError('Data final menor que data atual')
 
-        data = request.POST['data_final']
+
         plano = request.POST['plano']
+
         try:
             quantidade_aulas = int(request.POST['quantidade_aulas'])
         except Exception as err:
             raise ValueError('Quantidade de aulas inválida')
             
         acesso_anterior = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
+        
         try:
             cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+            if cpf_cliente[0] == '0':
+                cpf = ('0{}'.format(cpf))
         except Exception as err:
             raise ValueError('CPF Inválido ou inexistente')
         if valida_cpf == False:
@@ -194,21 +204,30 @@ def editar_cadastro(request):
         cpf_cliente = request.POST['cpf_editar']
         valida_cpf = cpf_validate(cpf_cliente)
 
-        try:
-            cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
-        except Exception as err:
-            raise ValueError('CPF Inválido ou inexistente')
-
+        data_atual = datetime.datetime.now().strftime("%d/%m/%Y")
         cliente.data_inicio = request.POST['data_matricula_editar']
         cliente.data_final = request.POST['data_final_editar']
+
+        if len(cliente.data_inicio) < 10:
+            raise ValueError('Data de matrícula inválida, usar padrão de 01/01/2020')
+        if len(cliente.data_final) < 10:
+            raise ValueError('Data final inválida, usar padrão de 01/01/2020')
+        if cliente.data_inicio > data_atual:
+            raise ValueError('Data de matrícula maior que data atual')
+        if cliente.data_final < data_atual:
+            raise ValueError('Data final menor que data atual')
+
         cliente.plano_escolhido = request.POST['plano_editar']
+        
         try:
             cliente.quantidade_aulas = int(request.POST['quantidade_aulas_editar'])
         except Exception as err:
             raise ValueError('Quantidade de aulas inválida')
-            
+        
         try:
             cliente.cpf = int(''.join(i for i in cpf_cliente if i.isdigit()))
+            if cpf_cliente[0] == '0':
+                cliente.cpf = ('0{}'.format(cliente.cpf))
         except Exception as err:
             raise ValueError('CPF Inválido ou inexistente')
         if valida_cpf == False:
@@ -229,7 +248,7 @@ def editar_cadastro(request):
             else:
                 cursor = connection.cursor()
                 query = cursor.execute("""select * from Cliente_usuarios 
-                    where cpf = {} and plano_escolhido = '{}'; """.format(cpf, cliente.plano_escolhido))
+                    where cpf = {} and plano_escolhido = '{}'; """.format(cliente.cpf, cliente.plano_escolhido))
                 retorno = list(str(cursor.fetchall()).split(','))
                 plano_cadastrado = (retorno[8][2:-1])
 
@@ -295,3 +314,41 @@ def deletar_cliente(request):
         usuario.delete()
                 
         return redirect('clientes')
+
+def dados(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+    
+    if request.method == 'POST':
+        try:
+            cursor = connection.cursor()
+            data = datetime.datetime.now().strftime("%d/%m/%Y")
+
+            query_total = cursor.execute ('''select count(*) from Cliente_usuarios 
+            where quantidade_aulas not like '0';''')
+            alunos = cursor.fetchone()[0]
+
+            query_total = cursor.execute (''' select count(*) from Cliente_acesso_cliente
+            where status_acesso not like "%Bloqueado%";'''.format(data))
+            dados = cursor.fetchone()[0]
+
+            query_acesso_dia = cursor.execute (''' select count(*) from Cliente_acesso_cliente
+            where data_acesso like "%{}%" and status_acesso not like "%Bloqueado%";'''.format(data))
+            acesso_dia = cursor.fetchone()[0]
+
+            query_acesso_mes = cursor.execute (''' select count(*) from Cliente_acesso_cliente
+            where data_acesso like "%{}%" and status_acesso not like "%Bloqueado%";'''.format(data[3:]))
+            acesso_mes = cursor.fetchone()[0]
+
+            query_bloqueio_dia = cursor.execute (''' select count(*) from Cliente_acesso_cliente
+            where data_acesso like "%{}%" and status_acesso like "%Bloqueado%";'''.format(data))
+            block_dia = cursor.fetchone()[0]
+
+            query_bloqueio_mes = cursor.execute (''' select count(*) from Cliente_acesso_cliente
+            where data_acesso like "%{}%" and status_acesso like "%Bloqueado%";'''.format(data[3:]))
+            block_mes = cursor.fetchone()[0]
+
+        except Exception as err:
+            pass
+
+        return render(request, 'Cliente/dados.html', {'alunos':alunos, 'dados':dados, 'acesso_dia':acesso_dia, 'acesso_mes':acesso_mes, 'block_dia':block_dia, 'block_mes':block_mes})
