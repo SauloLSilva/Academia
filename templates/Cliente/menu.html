@@ -84,6 +84,17 @@
             </form>
             <td>Acesso</td>
           </div>
+          {% if user.is_admin %}
+            <div>
+              <form role="form" action="{% url 'dados' %}" method="POST" enctype="multipart/form-data" title="Visualizador de últimos acessos a academia registrados">
+                {% csrf_token %}
+                  <button>
+                    <img id=alunos src="{% static 'icons/sifrao.png' %}">
+                  </button>
+              </form>
+              <td>Dados</td>
+            </div>
+          {%endif%}
         </div>
       </div>
 {% endblock conteudo %}
