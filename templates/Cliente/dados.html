@@ -1,0 +1,44 @@
+{% extends 'Cliente/base2.html' %}
+{% load static %}
+
+{% block estilo %}
+  <link rel="stylesheet" href="{% static 'css/clientes1.css' %}">
+{% endblock estilo %}
+
+{% block header %}
+  <div class="title pessoas">
+    <img id=alunos src="{% static 'icons/pessoas-branco.png' %}">
+    <p>Dados de acesso</p>
+  </div>
+{% endblock header %}
+{% block conteudo %}
+      <div class="clientes-lista">
+        
+        <div class="area-clientes">
+          <table>
+            <thead>
+              <th>Total de alunos</th>
+              <th>Total de acessos</th>
+              <th>Acessos hoje</th>
+              <th>Acesso no mês</th>
+              <th>Bloqueios no dia</th>
+              <th>Bloqueios no mês</th>
+            </thead>
+            <tbody>
+              <div>
+              <tr>
+                <td><a class="add-link">{{alunos}}</a></td>
+                <td><a class="add-link">{{dados}}</a></td>
+                <td><a class="add-link">{{acesso_dia}}</a></td>
+                <td><a class="add-link">{{acesso_mes}}</a></td>
+                <td><a class="add-link">{{block_dia}}</a></td>
+                <td><a class="add-link">{{block_mes}}</a></td>
+          </td>
+              </tr>
+            </div>
+            </tbody>
+          </table>
+        </div>
+        <button name="voltar" title="Retorna ao menu principal" onclick="location.href='menu';" >Voltar</button>
+      </div>
+{% endblock conteudo %}
