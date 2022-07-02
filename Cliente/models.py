@@ -66,7 +66,6 @@ class Adm_Usuarios(BaseUserManager):
         try:
             retorno = list(str(cursor.fetchall()).split(','))
             aluno = (retorno[3][2:-1])
-            print(aluno)
             qtd_aulas = int(retorno[12])
 
             if qtd_aulas !=0:
@@ -93,7 +92,6 @@ class Adm_Usuarios(BaseUserManager):
         
                 return cliente
         except Exception as err:
-            print(err)
             raise ValueError('CPF não encontrado ou não cadastrado nesse plano')
 
     

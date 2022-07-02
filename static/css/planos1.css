@@ -122,6 +122,8 @@ td {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  background-color: transparent;
 }
 img#planos-delete {
   width: 40px;

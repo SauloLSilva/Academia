@@ -31,5 +31,6 @@ urlpatterns = [
     path('deletar_cliente', deletar_cliente, name='deletar_cliente'),
     path('novo_usuario', novo_usuario, name='novo_usuario'),
     path('criar_usuario', criar_usuario, name='criar_usuario'),
+    path('dados', dados, name='dados'),
     path('logout', logout, name='logout')
 ]
