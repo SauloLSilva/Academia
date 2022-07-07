@@ -1,3 +1,4 @@
+from time import sleep
 from django.shortcuts import render, redirect
 from .models import Adm_Planos, Planos
 # Create your views here.
@@ -13,6 +14,10 @@ def planos(request):
         return redirect('login')
     
     plano = Planos.objects.all().order_by('nome_plano')
+    
+    for c in plano:
+        alunos = Adm_Planos().count_aluno(c)
+
     return render (request, 'Plano/planos.html', {'plano': plano})
 
 def novo_plano(request):

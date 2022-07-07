@@ -20,7 +20,9 @@
               <th>Curso</th>
               <th>Aulas</th>
               <th>Valor</th>
-              <th>Editar/Excluir</th>
+              <th>Alunos</th>
+              <th>Editar</th>
+              <th>Excluir</th>
           </thead>
             <tbody>
               {%for plano in plano %}
@@ -29,6 +31,7 @@
                 <td><a id="add-link">{{plano.nome_plano}}</a></td>
                 <td><a id="add-link">{{plano.quantidade_aulas}}</a></td>
                 <td><a id="add-link">R${{plano.valor}}</a></td>
+                <td><a id="add-link">{{plano.count_aluno}}</a></td>
                 <td>
                   <form role="form" action="{% url 'novo_plano' %}" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
@@ -36,6 +39,8 @@
                         <img id="planos-delete" src="{% static 'icons/edit.png' %}">
                       </button>
                   </form>
+                </td>
+                <td>
                   <form role="form" action="{% url 'deletar_plano' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                         <button class="add-link delete-td" type="submit" onclick="window.alert('Plano deletado com sucesso!')" id="id_delete_plano" name="id_delete_plano" value="{{plano.id}}">

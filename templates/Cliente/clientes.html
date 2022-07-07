@@ -25,7 +25,8 @@
               <th>Data Final</th>
               <th>Aulas Restantes</th>
               <th>Último Acesso</th>
-              <th>Editar/Excluir</th>
+              <th>Editar</th>
+              <th>Excluir</th>
             </thead>
             <tbody>
               {%for Usuarios in usuario %}
@@ -46,6 +47,8 @@
                         <img id="alunos-delete" src="{% static 'icons/edit.png' %}">
                       </button>
                   </form>
+                  </td>
+                  <td>
                   <form role="form" action="{% url 'deletar_cliente' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                         <button class="add-link delete-td" type="submit" onclick="window.alert('Usuario deletado com sucesso!')" id="id_deletar" name="id_deletar" value="{{Usuarios.id}}">
