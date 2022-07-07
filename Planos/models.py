@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-import sqlite3
+from django.db import connection
 
 # Create your models here.
 class Adm_Planos(BaseUserManager):
@@ -21,13 +21,31 @@ class Adm_Planos(BaseUserManager):
         plano.save(using=self._db)
         
         return plano
+    
+    def count_aluno(self, nome_plano):
+
+        cursor = connection.cursor()
+        query = cursor.execute ('''select count(*) from Cliente_usuarios
+        where plano_escolhido = "{}" '''.format(nome_plano))
+        retorno = str(cursor.fetchone()[0])
+        # print(retorno)
+
+        for c in retorno:
+            print(retorno)
+            query = cursor.execute('''update Planos_planos 
+            set count_aluno = {} where nome_plano = '{}';'''.format(c, nome_plano))
+
 
 class Planos(models.Model):
     nome_plano = models.CharField(max_length=255)
     quantidade_aulas = models.IntegerField()
     valor = models.IntegerField()
+    count_aluno = models.IntegerField(default=0)
 
     data_criado = models.DateTimeField(auto_now_add=True)
     data_editado = models.DateTimeField(auto_now_add=True)
 
     objects = Adm_Planos()
+
+    def __str__(self):
+        return self.nome_plano
