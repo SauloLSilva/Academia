@@ -324,6 +324,9 @@ def dados(request):
             cursor = connection.cursor()
             data = datetime.datetime.now().strftime("%d/%m/%Y")
 
+            query_total = cursor.execute ('''select count(*) from Cliente_usuarios;''')
+            alunos_total = cursor.fetchone()[0]
+
             query_total = cursor.execute ('''select count(*) from Cliente_usuarios 
             where quantidade_aulas not like '0';''')
             alunos = cursor.fetchone()[0]
@@ -351,4 +354,4 @@ def dados(request):
         except Exception as err:
             pass
 
-        return render(request, 'Cliente/dados.html', {'alunos':alunos, 'dados':dados, 'acesso_dia':acesso_dia, 'acesso_mes':acesso_mes, 'block_dia':block_dia, 'block_mes':block_mes})
+        return render(request, 'Cliente/dados.html', {'total_alunos':alunos_total,'alunos':alunos, 'dados':dados, 'acesso_dia':acesso_dia, 'acesso_mes':acesso_mes, 'block_dia':block_dia, 'block_mes':block_mes})

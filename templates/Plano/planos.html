@@ -1,8 +1,8 @@
-{% extends 'Cliente/base.html' %}
+{% extends 'Cliente/base2.html' %}
 {% load static %}
 
 {% block estilo %}
-  <link rel="stylesheet" href="{% static 'css/planos1.css' %}">
+  <link rel="stylesheet" href="{% static 'css/clientes1.css' %}">
 {% endblock estilo %}
 
 {% block header %}
@@ -12,18 +12,19 @@
   </div>
 {% endblock header %}
 {% block conteudo %}
-      <div class="planos-lista">
+      <div class="clientes-lista">
         
-        <div class="area-planos">
+        <div class="area-clientes">
           <table>
-          <thead>
+            <thead>
               <th>Curso</th>
               <th>Aulas</th>
               <th>Valor</th>
-              <th>Alunos</th>
+              <th>Alunos Totais</th>
+              <th>Alunos Ativos</th>
               <th>Editar</th>
               <th>Excluir</th>
-          </thead>
+            </thead>
             <tbody>
               {%for plano in plano %}
               <div>
@@ -32,22 +33,24 @@
                 <td><a id="add-link">{{plano.quantidade_aulas}}</a></td>
                 <td><a id="add-link">R${{plano.valor}}</a></td>
                 <td><a id="add-link">{{plano.count_aluno}}</a></td>
+                <td><a id="add-link">{{plano.alunos_ativos}}</a></td>
                 <td>
                   <form role="form" action="{% url 'novo_plano' %}" method="POST" enctype="multipart/form-data">
-                  {% csrf_token %}
-                      <button class="add-link delete-td" type="submit" id="plano_editar_id" name="plano_editar_id" value="{{plano.id}}">
-                        <img id="planos-delete" src="{% static 'icons/edit.png' %}">
+                    {% csrf_token %}
+                        <button class="add-link delete-td" type="submit" id="plano_editar_id" name="plano_editar_id" value="{{plano.id}}">
+                          <img id="alunos-delete" src="{% static 'icons/edit.png' %}">
                       </button>
                   </form>
-                </td>
-                <td>
-                  <form role="form" action="{% url 'deletar_plano' %}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                        <button class="add-link delete-td" type="submit" onclick="window.alert('Plano deletado com sucesso!')" id="id_delete_plano" name="id_delete_plano" value="{{plano.id}}">
-                          <img id="planos-delete" src="{% static 'icons/delete.png' %}">
+                  </td>
+                  <td>
+                    <form role="form" action="{% url 'deletar_plano' %}" method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                          <button class="add-link delete-td" type="submit" onclick="window.alert('Plano deletado com sucesso!')" id="id_delete_plano" name="id_delete_plano" value="{{plano.id}}">
+                          <img id="alunos-delete" src="{% static 'icons/delete.png' %}">
                         </button>
                     </form>
                 </td>
+          </td>
               </tr>
               {% endfor %}
             </div>
