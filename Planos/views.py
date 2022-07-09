@@ -9,15 +9,21 @@ def sessao_ativa(request):
     else:
         return False
 
-def planos(request):
-    if not sessao_ativa(request):
-        return redirect('login')
-    
+def update_frequencia():
     plano = Planos.objects.all().order_by('nome_plano')
     
     for c in plano:
         alunos = Adm_Planos().count_aluno(c)
+        alunos_ativos = Adm_Planos().aluno_ativo(c)
 
+def planos(request):
+    if not sessao_ativa(request):
+        return redirect('login')
+
+    update_frequencia()
+    
+    plano = Planos.objects.all().order_by('nome_plano')
+        
     return render (request, 'Plano/planos.html', {'plano': plano})
 
 def novo_plano(request):
