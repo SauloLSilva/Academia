@@ -9,6 +9,12 @@ from Planos.models import Planos
 import datetime
 from django.contrib import auth
 from django.db import connection
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
+import numpy as np
+import subprocess
+
 # Create your views here.
 
 # ________________________administrativo___________________________
@@ -315,6 +321,20 @@ def deletar_cliente(request):
                 
         return redirect('clientes')
 
+def grafico(nome, nome2, total1, total2, nome_tabela):
+    local = subprocess.check_output(['pwd']).decode('utf-8').strip()
+    objects = [nome,nome2]
+    y_pos = np.arange(len(objects))
+    qty = [total1, total2]
+    plt.bar(y_pos, qty, align='center', alpha=0.5)
+    plt.xticks(y_pos, objects)
+    for i, v in enumerate(qty):
+        plt.text(i, v, " "+str(v), color='blue', va='center', fontweight='bold')
+    plt.ylabel('Dados')
+    plt.title(nome_tabela)
+    plt.savefig('{}/media/barchart{}.png'.format(local, nome_tabela))
+    plt.close()
+
 def dados(request):
     if not sessao_ativa(request):
         return redirect('login')
@@ -339,6 +359,8 @@ def dados(request):
             where data_acesso like "%{}%" and status_acesso not like "%Bloqueado%";'''.format(data))
             acesso_dia = cursor.fetchone()[0]
 
+            grafico('total de alunos', 'alunos ativos', alunos_total, alunos, 'Registro de alunos')
+
             query_acesso_mes = cursor.execute (''' select count(*) from Cliente_acesso_cliente
             where data_acesso like "%{}%" and status_acesso not like "%Bloqueado%";'''.format(data[3:]))
             acesso_mes = cursor.fetchone()[0]
@@ -351,6 +373,8 @@ def dados(request):
             where data_acesso like "%{}%" and status_acesso like "%Bloqueado%";'''.format(data[3:]))
             block_mes = cursor.fetchone()[0]
 
+            grafico('Acessos/Dia', 'Acessos/Mês', acesso_dia, acesso_mes, 'Registro de acesso')
+        
         except Exception as err:
             pass
 

@@ -12,6 +12,14 @@
   </div>
 {% endblock header %}
 {% block conteudo %}
+    <style>
+      body {
+        text-align:center;
+      }
+      #grafico{
+            max-width: 49.5%;
+        }
+    </style>
       <div class="clientes-lista">
         
         <div class="area-clientes">
@@ -19,27 +27,29 @@
             <thead>
               <th>Total de alunos</th>
               <th>Alunos Ativos</th>
-              <th>Total de acessos</th>
+              <!-- <th>Total de acessos</th> -->
               <th>Acessos hoje</th>
               <th>Acesso no mês</th>
-              <th>Bloqueios no dia</th>
-              <th>Bloqueios no mês</th>
+              <!-- <th>Bloqueios no dia</th>
+              <th>Bloqueios no mês</th> -->
             </thead>
             <tbody>
               <div>
               <tr>
                 <td><a class="add-link">{{total_alunos}}</a></td>
                 <td><a class="add-link">{{alunos}}</a></td>
-                <td><a class="add-link">{{dados}}</a></td>
+                <!-- <td><a class="add-link">{{dados}}</a></td> -->
                 <td><a class="add-link">{{acesso_dia}}</a></td>
                 <td><a class="add-link">{{acesso_mes}}</a></td>
-                <td><a class="add-link">{{block_dia}}</a></td>
-                <td><a class="add-link">{{block_mes}}</a></td>
+                <!-- <td><a class="add-link">{{block_dia}}</a></td>
+                <td><a class="add-link">{{block_mes}}</a></td> -->
           </td>
               </tr>
             </div>
             </tbody>
           </table>
+          <img id = 'grafico' src="./media/barchartRegistro de alunos.png" />
+          <img id = 'grafico' src="./media/barchartRegistro de acesso.png" />
         </div>
         <button name="voltar" title="Retorna ao menu principal" onclick="location.href='menu';" >Voltar</button>
       </div>
