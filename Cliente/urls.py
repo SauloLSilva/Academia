@@ -16,6 +16,8 @@ Including another URLconf
 # Adcionar url de menu do site
 from django.urls import path
 from .views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -34,3 +36,4 @@ urlpatterns = [
     path('dados', dados, name='dados'),
     path('logout', logout, name='logout')
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
